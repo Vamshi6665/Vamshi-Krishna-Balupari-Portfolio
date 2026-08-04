@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { @apply bg-bg text-body font-sans antialiased; }
+::selection { background: rgba(79,70,229,.15); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #fbfaf8; }
+::-webkit-scrollbar-thumb { background: #d4d2cc; border-radius: 2px; }
+
+.text-grad {
+  background: linear-gradient(120deg,#4f46e5,#8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
