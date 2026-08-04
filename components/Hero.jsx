@@ -54,7 +54,7 @@ export default function Hero() {
       <div className="relative max-w-[1060px] mx-auto w-full">
         <motion.p variants={fadeUp} initial="hidden" animate="show" custom={0}
           className="font-mono text-[12.5px] text-soft mb-4 flex items-center gap-2">
-          <span className="inline-block w-6 h-[1.5px] bg-grad" /> Houston, TX · Open to Remote
+          <span className="inline-block w-6 h-[1.5px] bg-grad" /> 
         </motion.p>
 
         <motion.h1 variants={fadeUp} initial="hidden" animate="show" custom={1}
@@ -73,7 +73,7 @@ export default function Hero() {
           <strong className="text-ink font-semibold">5M+ records daily</strong>, research{' '}
           <strong className="text-ink font-semibold">Explainable AI</strong> (SHAP &amp; Anchor), and build real products
           with <strong className="text-ink font-semibold">AI-assisted workflows</strong> — most recently an inventory
-          analytics platform helping a local Texas business make smarter purchasing decisions.
+          analytics platform helping a local business make smarter purchasing decisions.
         </motion.p>
 
         <motion.div variants={fadeUp} initial="hidden" animate="show" custom={4} className="flex flex-wrap gap-3.5 mb-8">
