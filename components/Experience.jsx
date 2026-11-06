@@ -1,70 +1,49 @@
-import Reveal from './Reveal'
-import SectionHead from './SectionHead'
-import { Rich, Chip } from './ui'
 import { EXPERIENCE } from '../data/content'
+import { Rich, SectionHead } from './ui'
 
 export default function Experience() {
   return (
-    <section id="experience" className="px-5 md:px-8 py-16 md:py-24 bg-gradient-to-b from-bg via-[#f6f4ff] to-bg">
-      <div className="max-w-[1120px] mx-auto">
-        <SectionHead
-          tag="Experience"
-          title="Where I've worked"
-          sub="Enterprise analytics at DXC, research at Northwest Missouri State, and production data products today."
-        />
+    <section id="experience" aria-labelledby="exp-title" className="py-20 md:py-28">
+      <div className="max-w-page mx-auto px-5 md:px-8">
+        <SectionHead id="exp-title" title="Experience" intro="Four-plus years of data engineering and analytics, from enterprise clients to a business I support today." />
+        <ol>
+          {EXPERIENCE.map((job) => (
+            <li key={job.org} className="grid md:grid-cols-[220px_1fr] gap-3 md:gap-10 py-10 border-t border-rule">
+              <div className="text-[14.5px] text-fog">
+                <p className="text-ink font-medium">{job.dates}</p>
+                <p>{job.location}</p>
+              </div>
+              <div>
+                <h3 className="font-disp font-bold text-[24px] md:text-[28px] leading-tight tracking-[-0.015em] text-ink">{job.role}</h3>
+                <p className="text-[16px] text-slate mt-1">{job.org}</p>
 
-        <ol className="relative md:pl-10 md:before:absolute md:before:left-[11px] md:before:top-3 md:before:bottom-3 md:before:w-px md:before:bg-line">
-          {EXPERIENCE.map((job, i) => (
-            <li key={job.org} className="relative mb-5 last:mb-0">
-              <span
-                aria-hidden="true"
-                className="hidden md:block absolute -left-10 top-8 w-[23px] h-[23px] rounded-full bg-bg border-2 border-indigo/40 after:absolute after:inset-[5px] after:rounded-full after:bg-grad"
-              />
-              <Reveal delay={i * 0.05}>
-                <article className="group bg-white border border-line rounded-[20px] p-6 md:p-8 hover:border-indigo/30 hover:shadow-[0_16px_40px_-22px_rgba(25,24,35,.16)] transition-all">
-                  <header className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-4 mb-4">
-                    <div>
-                      <h3 className="font-disp font-semibold text-[21px] text-ink leading-tight">{job.role}</h3>
-                      <p className="font-disp font-medium text-[15px] text-grad mt-1">
-                        {job.org} <span className="text-soft">· {job.location}</span>
-                      </p>
-                    </div>
-                    <p className="font-mono text-[12.5px] text-soft whitespace-nowrap sm:pt-1">{job.dates}</p>
-                  </header>
-
-                  {job.groups.map((g, gi) => (
-                    <div key={gi} className={gi > 0 ? 'mt-5' : ''}>
-                      {g.label && (
-                        <p className="font-mono text-[11.5px] text-amberx tracking-[.1em] uppercase mb-2">{g.label}</p>
-                      )}
-                      <ul className="space-y-2">
-                        {g.bullets.map((b) => (
-                          <li key={b} className="text-[15px] leading-relaxed pl-5 relative">
-                            <span aria-hidden="true" className="absolute left-0 top-[0.62em] w-1.5 h-1.5 rounded-full bg-indigo/70" />
-                            <Rich text={b} />
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-
-                  {job.note && <p className="mt-5 text-[14px] text-soft italic">{job.note}</p>}
-
-                  <div className="flex flex-wrap gap-1.5 mt-5">
-                    {job.chips.map((c) => <Chip key={c} variant="accent">{c}</Chip>)}
-                  </div>
-
-                  {job.links && (
-                    <div className="flex flex-wrap gap-x-5 gap-y-2 mt-5 pt-4 border-t border-line">
-                      {job.links.map((l) => (
-                        <a key={l.href} href={l.href} className="text-[14px] font-medium text-indigo hover:underline underline-offset-4">
-                          {l.label} <span aria-hidden="true">→</span>
-                        </a>
+                {job.groups.map((g, gi) => (
+                  <div key={gi} className="mt-5">
+                    {g.label && <p className="text-[14.5px] font-semibold text-ink mb-2">{g.label}</p>}
+                    <ul className="space-y-2">
+                      {g.bullets.map((b) => (
+                        <li key={b} className="relative pl-5 text-[15.5px] leading-relaxed">
+                          <span aria-hidden="true" className="absolute left-0 top-[0.65em] w-2 h-[2px] rounded lens-bg" />
+                          <Rich text={b} />
+                        </li>
                       ))}
-                    </div>
-                  )}
-                </article>
-              </Reveal>
+                    </ul>
+                  </div>
+                ))}
+
+                {job.note && <p className="mt-4 text-[14.5px] text-fog">{job.note}</p>}
+
+                {job.links && (
+                  <p className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[14.5px]">
+                    <span className="text-fog">Case studies:</span>
+                    {job.links.map((l) => (
+                      <a key={l.href} href={l.href} className="text-ink font-medium underline decoration-rule underline-offset-4 hover:decoration-ink">
+                        {l.label}
+                      </a>
+                    ))}
+                  </p>
+                )}
+              </div>
             </li>
           ))}
         </ol>

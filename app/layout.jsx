@@ -1,46 +1,28 @@
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
+import '@fontsource-variable/bricolage-grotesque/opsz.css'
 import './globals.css'
 import Providers from '../components/Providers'
 
 const SITE_URL = 'https://vamshikrishna-portfolio-three.vercel.app'
+const TITLE = 'Vamshi Krishna Balupari | Data Engineer, Analyst, ML and Gen AI'
 const DESCRIPTION =
-  'Data Analyst and Analytics Engineer with 4+ years of experience in Power BI, SQL, Snowflake, and Python, plus research in explainable AI.'
+  'Data pipelines, dashboards, and AI tools built end to end. 4+ years engineering data for AT&T and VFS Global, plus live products and explainable AI research.'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Vamshi Krishna Balupari | Data Analyst and Analytics Engineer',
+  title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: '/' },
-  openGraph: {
-    type: 'website',
-    url: SITE_URL,
-    title: 'Vamshi Krishna Balupari | Data Analyst and Analytics Engineer',
-    description: DESCRIPTION,
-    siteName: 'Vamshi Krishna Balupari',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Vamshi Krishna Balupari | Data Analyst and Analytics Engineer',
-    description: DESCRIPTION,
-  },
+  openGraph: { type: 'website', url: SITE_URL, title: TITLE, description: DESCRIPTION, siteName: 'Vamshi Krishna Balupari' },
+  twitter: { card: 'summary', title: TITLE, description: DESCRIPTION },
 }
 
-export const viewport = {
-  themeColor: '#fbfaf8',
-  width: 'device-width',
-  initialScale: 1,
-}
+export const viewport = { themeColor: '#FFFFFF', width: 'device-width', initialScale: 1 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

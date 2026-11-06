@@ -2,30 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/* The active role lens color. Registered so it can animate when the lens changes. */
+@property --lens {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #10192B;
+}
+
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { @apply bg-paper text-slate font-sans antialiased; font-feature-settings: 'ss01', 'cv11'; }
+
+.lens-root { transition: --lens 450ms ease; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .lens-root { transition: none; }
 }
 
-body { @apply bg-bg text-body font-sans antialiased; }
+/* Anchors clear the fixed two-row header. */
+section[id], article[id] { scroll-margin-top: 128px; }
 
-/* Keep section headings clear of the fixed 64px nav when jumping to anchors. */
-section[id], article[id] { scroll-margin-top: 80px; }
-
-h1, h2, h3 { text-wrap: balance; }
+h1, h2, h3, h4 { text-wrap: balance; }
 p, li, dd { text-wrap: pretty; }
 
-::selection { background: rgba(79,70,229,.15); }
+::selection { background: color-mix(in srgb, var(--lens) 18%, white); }
 
 a:focus-visible, button:focus-visible {
-  outline: 2px solid #4f46e5;
+  outline: 2px solid var(--lens);
   outline-offset: 3px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
-.text-grad {
-  background: linear-gradient(120deg,#4f46e5,#8b5cf6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+@layer utilities {
+  .lens-text { color: var(--lens); }
+  .lens-bg { background-color: var(--lens); }
+  .lens-border { border-color: var(--lens); }
+  .lens-tint { background-color: color-mix(in srgb, var(--lens) 7%, white); }
+  .lens-tint-border { border-color: color-mix(in srgb, var(--lens) 28%, white); }
 }
