@@ -2,12 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body { @apply bg-bg text-body font-sans antialiased; }
+
+/* Keep section headings clear of the fixed 64px nav when jumping to anchors. */
+section[id], article[id] { scroll-margin-top: 80px; }
+
+h1, h2, h3 { text-wrap: balance; }
+p, li, dd { text-wrap: pretty; }
+
 ::selection { background: rgba(79,70,229,.15); }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #fbfaf8; }
-::-webkit-scrollbar-thumb { background: #d4d2cc; border-radius: 2px; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 3px;
+  border-radius: 10px;
+}
 
 .text-grad {
   background: linear-gradient(120deg,#4f46e5,#8b5cf6);

@@ -1,9 +1,33 @@
 import './globals.css'
+import Providers from '../components/Providers'
+
+const SITE_URL = 'https://vamshikrishna-portfolio-three.vercel.app'
+const DESCRIPTION =
+  'Data Analyst and Analytics Engineer with 4+ years of experience in Power BI, SQL, Snowflake, and Python, plus research in explainable AI.'
 
 export const metadata = {
-  title: 'Vamshi Krishna Balupari | Portfolio',
-  description:
-    'Data Analyst & Engineer with 4+ years of experience — Power BI, SQL, Snowflake, Python, Explainable AI research, and AI-assisted product development.',
+  metadataBase: new URL(SITE_URL),
+  title: 'Vamshi Krishna Balupari | Data Analyst and Analytics Engineer',
+  description: DESCRIPTION,
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: SITE_URL,
+    title: 'Vamshi Krishna Balupari | Data Analyst and Analytics Engineer',
+    description: DESCRIPTION,
+    siteName: 'Vamshi Krishna Balupari',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Vamshi Krishna Balupari | Data Analyst and Analytics Engineer',
+    description: DESCRIPTION,
+  },
+}
+
+export const viewport = {
+  themeColor: '#fbfaf8',
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({ children }) {
@@ -17,7 +41,9 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }
