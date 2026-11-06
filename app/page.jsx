@@ -2,8 +2,7 @@ import Nav from '../components/Nav'
 import Hero from '../components/Hero'
 import About from '../components/About'
 import Experience from '../components/Experience'
-import CaseStudies from '../components/CaseStudies'
-import Projects from '../components/Projects'
+import Work from '../components/Work'
 import Skills from '../components/Skills'
 import Certifications from '../components/Certifications'
 import Contact from '../components/Contact'
@@ -23,8 +22,7 @@ export default function Home() {
         <Hero />
         <About />
         <Experience />
-        <CaseStudies />
-        <Projects />
+        <Work />
         <Skills />
         <Certifications />
         <Contact />

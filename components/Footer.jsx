@@ -4,7 +4,6 @@ const LINKS = [
   ['About', '#about'],
   ['Experience', '#experience'],
   ['Work', '#work'],
-  ['Projects', '#projects'],
   ['Contact', '#contact'],
 ]
 

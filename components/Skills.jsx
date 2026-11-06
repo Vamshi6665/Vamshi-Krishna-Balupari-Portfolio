@@ -5,8 +5,9 @@ const GROUPS = [
   { name: 'BI and reporting', items: ['Power BI', 'DAX', 'Executive dashboards', 'KPI design', 'Data storytelling', 'Tableau', 'Excel'] },
   { name: 'Analytics', items: ['Trend analysis', 'Root cause analysis', 'Forecasting', 'Statistical analysis', 'Predictive modeling', 'Ad hoc analysis'] },
   { name: 'Programming and querying', items: ['SQL', 'Python', 'pandas', 'NumPy', 'scikit-learn', 'JavaScript', 'MySQL'] },
-  { name: 'Data platforms and engineering', items: ['Snowflake', 'dbt', 'Apache Airflow', 'Azure Data Factory', 'Databricks', 'PostgreSQL', 'SQL Server', 'Amazon Athena', 'ETL / ELT design'] },
-  { name: 'Big data, ML, and explainable AI', items: ['Apache Spark', 'Kafka', 'SHAP', 'Anchor', 'Interpretable ML', 'LLM SDKs'] },
+  { name: 'Data platforms and engineering', items: ['Snowflake', 'AWS S3', 'Amazon Athena', 'dbt', 'Apache Airflow', 'Azure Data Factory', 'Databricks', 'PostgreSQL', 'Supabase', 'SQL Server', 'ETL / ELT design'] },
+  { name: 'Machine learning', items: ['scikit-learn', 'Random Forest', 'Anomaly detection', 'SHAP', 'Anchor', 'Model calibration', 'Apache Spark', 'Kafka'] },
+  { name: 'Gen AI and apps', items: ['Claude API', 'OpenAI SDK', 'GitHub Copilot SDK', 'Prompt grounding', 'React', 'TypeScript', 'Node.js', 'Express', 'Flask'] },
   { name: 'Cloud, quality, and delivery', items: ['Microsoft Azure', 'AWS', 'GCP', 'Docker', 'Data validation', 'Git and GitHub', 'Agile', 'Jira', 'Stakeholder management'] },
 ]
 

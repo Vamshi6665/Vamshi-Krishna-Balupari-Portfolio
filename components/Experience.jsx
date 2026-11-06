@@ -10,7 +10,7 @@ export default function Experience() {
         <SectionHead
           tag="Experience"
           title="Where I've worked"
-          sub="Enterprise analytics at DXC, research at Northwest Missouri State, and production data tools today."
+          sub="Enterprise analytics at DXC, research at Northwest Missouri State, and production data products today."
         />
 
         <ol className="relative md:pl-10 md:before:absolute md:before:left-[11px] md:before:top-3 md:before:bottom-3 md:before:w-px md:before:bg-line">
@@ -53,6 +53,16 @@ export default function Experience() {
                   <div className="flex flex-wrap gap-1.5 mt-5">
                     {job.chips.map((c) => <Chip key={c} variant="accent">{c}</Chip>)}
                   </div>
+
+                  {job.links && (
+                    <div className="flex flex-wrap gap-x-5 gap-y-2 mt-5 pt-4 border-t border-line">
+                      {job.links.map((l) => (
+                        <a key={l.href} href={l.href} className="text-[14px] font-medium text-indigo hover:underline underline-offset-4">
+                          {l.label} <span aria-hidden="true">→</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </article>
               </Reveal>
             </li>

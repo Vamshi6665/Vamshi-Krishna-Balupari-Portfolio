@@ -83,18 +83,21 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        <dl className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-[860px]">
+        <ul className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-[860px]">
           {HERO.stats.map((st, i) => (
-            <motion.div
-              key={st.label}
-              variants={fadeUp} initial="hidden" animate="show" custom={5 + i}
-              className="flex flex-col-reverse justify-end gap-2 bg-white border border-line rounded-2xl px-4 py-4 md:px-5"
-            >
-              <dt className="text-[12.5px] leading-snug text-soft">{st.label}</dt>
-              <dd className="font-disp font-bold text-[28px] leading-none text-grad">{st.value}</dd>
-            </motion.div>
+            <motion.li key={st.label} variants={fadeUp} initial="hidden" animate="show" custom={5 + i}>
+              <a
+                href={st.href}
+                className="group h-full flex flex-col-reverse justify-end gap-2 bg-white border border-line rounded-2xl px-4 py-4 md:px-5 hover:border-indigo/40 hover:-translate-y-0.5 transition-all"
+              >
+                <span className="text-[12.5px] leading-snug text-soft">
+                  {st.label} <span aria-hidden="true" className="text-indigo opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </span>
+                <span className="font-disp font-bold text-[28px] leading-none text-grad">{st.value}</span>
+              </a>
+            </motion.li>
           ))}
-        </dl>
+        </ul>
       </div>
     </section>
   )
