@@ -1,44 +1,50 @@
+'use client'
 import { PROFILE } from '../data/content'
-import { GitHubIcon, LinkedInIcon, MailIcon, PhoneIcon, PinIcon } from './ui'
+import { Tile, GitHubIcon, LinkedInIcon, MailIcon, PhoneIcon, PinIcon } from './ui'
 
 export default function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="py-20 md:py-28">
-      <div className="max-w-page mx-auto px-5 md:px-8 grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 lg:gap-16 items-end">
-        <div>
-          <h2 id="contact-title" className="font-disp font-bold text-ink text-[40px] md:text-[64px] leading-[1.02] tracking-[-0.025em]">
-            Hiring for data, analytics, ML, or Gen AI?
-          </h2>
-          <p className="mt-5 text-[17px] leading-relaxed max-w-[560px]">
-            I&apos;m open to full-time and contract roles. Email is the fastest way to reach me.
-          </p>
-          <a
-            href={`mailto:${PROFILE.email}`}
-            className="mt-8 inline-flex items-center gap-3 font-disp font-semibold text-[20px] sm:text-[26px] text-ink border-b-2 lens-border pb-1 break-all"
-          >
-            {PROFILE.email}
-          </a>
-        </div>
+    <section id="contact" aria-labelledby="contact-title" className="max-w-page mx-auto px-4 md:px-8 pt-16 md:pt-24">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-3.5">
+        <Tile className="lg:col-span-3 lens-bg text-white p-7 md:p-10 flex flex-col justify-between gap-10 min-h-[300px]">
+          <p className="font-mono text-[12.5px] text-white/90">open to full-time and contract roles</p>
+          <div>
+            <h2 id="contact-title" className="font-disp font-bold text-[38px] md:text-[56px] leading-[1.02] tracking-[-0.03em] max-w-[760px]">
+              Hiring for data, analytics, ML, or Gen AI?
+            </h2>
+            <p className="mt-4 text-[16px] text-white/90">Email is the fastest way to reach me.</p>
+            <div className="mt-7 flex flex-wrap gap-2.5">
+              <a href={`mailto:${PROFILE.email}`} className="inline-flex items-center gap-2 min-h-[48px] px-5 rounded-xl bg-white text-ink font-semibold text-[15px] break-all hover:bg-night hover:text-white transition-colors">
+                <MailIcon className="w-4 h-4 shrink-0" /> {PROFILE.email}
+              </a>
+            </div>
+          </div>
+        </Tile>
 
-        <ul className="divide-y divide-rule border-y border-rule text-[15.5px]">
-          <li>
-            <a href={`mailto:${PROFILE.email}`} className="flex items-center gap-3 py-4 text-ink hover:lens-text"><MailIcon className="w-5 h-5 text-fog" /> Email</a>
-          </li>
-          <li>
-            <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-4 text-ink">
-              <LinkedInIcon className="w-5 h-5 text-fog" /> LinkedIn <span aria-hidden="true" className="text-fog">↗</span>
-            </a>
-          </li>
-          <li>
-            <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-4 text-ink">
-              <GitHubIcon className="w-5 h-5 text-fog" /> GitHub <span aria-hidden="true" className="text-fog">↗</span>
-            </a>
-          </li>
-          <li>
-            <a href={PROFILE.phoneHref} className="flex items-center gap-3 py-4 text-ink"><PhoneIcon className="w-5 h-5 text-fog" /> {PROFILE.phone}</a>
-          </li>
-          <li className="flex items-center gap-3 py-4 text-ink"><PinIcon className="w-5 h-5 text-fog" /> {PROFILE.location}</li>
-        </ul>
+        <Tile delay={0.05} className="bg-white p-3">
+          <ul className="h-full flex flex-col text-[15px]">
+            <li>
+              <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-ink hover:bg-chip">
+                <LinkedInIcon className="w-5 h-5 text-fog" /> LinkedIn <span aria-hidden="true" className="ml-auto text-fog">↗</span>
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-ink hover:bg-chip">
+                <GitHubIcon className="w-5 h-5 text-fog" /> GitHub <span aria-hidden="true" className="ml-auto text-fog">↗</span>
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={PROFILE.phoneHref} className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-ink hover:bg-chip">
+                <PhoneIcon className="w-5 h-5 text-fog" /> {PROFILE.phone}
+              </a>
+            </li>
+            <li className="flex items-center gap-3 px-4 py-3.5 text-ink">
+              <PinIcon className="w-5 h-5 text-fog" /> {PROFILE.location}
+            </li>
+          </ul>
+        </Tile>
       </div>
     </section>
   )

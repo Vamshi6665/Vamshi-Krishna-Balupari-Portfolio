@@ -2,41 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
-/* The active role lens color. Registered so it can animate when the lens changes. */
+/* The active role lens accent (on white) and its light tint (on dark tiles).
+   Registered so the whole page re-tints smoothly when the lens changes. */
 @property --lens {
   syntax: '<color>';
   inherits: true;
-  initial-value: #10192B;
+  initial-value: #C2410C;
+}
+@property --lens-dark {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #FDBA74;
 }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { @apply bg-paper text-slate font-sans antialiased; font-feature-settings: 'ss01', 'cv11'; }
+body { @apply bg-ground text-slate font-sans antialiased; }
 
-.lens-root { transition: --lens 450ms ease; }
+.lens-root { transition: --lens 450ms ease, --lens-dark 450ms ease; }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .lens-root { transition: none; }
-}
-
-/* Anchors clear the fixed two-row header. */
-section[id], article[id] { scroll-margin-top: 128px; }
+/* Anchors clear the sticky header (two rows on small screens). */
+section[id], article[id] { scroll-margin-top: 136px; }
+@media (min-width: 1280px) { section[id], article[id] { scroll-margin-top: 92px; } }
 
 h1, h2, h3, h4 { text-wrap: balance; }
 p, li, dd { text-wrap: pretty; }
 
-::selection { background: color-mix(in srgb, var(--lens) 18%, white); }
+::selection { background: color-mix(in srgb, var(--lens) 22%, white); }
 
 a:focus-visible, button:focus-visible {
   outline: 2px solid var(--lens);
   outline-offset: 3px;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 @layer utilities {
   .lens-text { color: var(--lens); }
+  .lens-text-dark { color: var(--lens-dark); }
   .lens-bg { background-color: var(--lens); }
   .lens-border { border-color: var(--lens); }
-  .lens-tint { background-color: color-mix(in srgb, var(--lens) 7%, white); }
-  .lens-tint-border { border-color: color-mix(in srgb, var(--lens) 28%, white); }
+  .lens-tint { background-color: color-mix(in srgb, var(--lens) 8%, white); }
+}
+
+/* Tiles rise in on scroll. Only hidden when scripts run, so the page never renders blank. */
+.js .reveal:not(.in) { opacity: 0; }
+.js .reveal.in { animation: rise .55s cubic-bezier(.22, 1, .36, 1) var(--d, 0s) backwards; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+
+/* Tiles lift on hover. */
+.tile-lift { transition: transform .25s ease, box-shadow .25s ease, opacity .35s ease; }
+a.tile-lift:hover, a.tile-lift:focus-visible { transform: translateY(-3px); box-shadow: 0 18px 40px -22px rgba(17, 21, 28, .35); }
+
+/* KPI flip tiles: number on the front, its source on the back. */
+.flip { perspective: 1000px; }
+.flip-inner {
+  position: relative;
+  height: 100%;
+  min-height: 196px;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.3, 1.3, .6, 1);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 22px;
+}
+.flip-back { transform: rotateY(180deg); }
+.flip-src { display: none; }
+@media (hover: hover) {
+  .flip:hover .flip-inner { transform: rotateY(180deg); }
+}
+.flip:focus-visible .flip-inner { transform: rotateY(180deg); }
+/* Touch screens can't hover: show the source on the front instead of flipping. */
+@media (hover: none) {
+  .flip-back { display: none; }
+  .flip-src { display: block; }
+  .flip-hint { display: none; }
+}
+
+/* Endless stack ticker. */
+.ticker { display: flex; gap: 10px; width: max-content; animation: ticker 36s linear infinite; }
+.ticker-wrap:hover .ticker { animation-play-state: paused; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+.live-dot { animation: live 1.6s ease-in-out infinite; }
+@keyframes live { 50% { opacity: .3; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .lens-root { transition: none; }
+  .js .reveal:not(.in) { opacity: 1; }
+  .js .reveal.in { animation: none; }
+  .tile-lift, .flip-inner { transition: none; }
+  .ticker, .live-dot { animation: none; }
+  .ticker { flex-wrap: wrap; width: auto; padding: 0 22px; }
+  .ticker [data-dupe] { display: none; }
 }

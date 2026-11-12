@@ -1,8 +1,8 @@
 'use client'
 import { AnimatePresence, motion } from 'framer-motion'
-import { PROFILE, HERO } from '../data/content'
+import { PROFILE, HERO, NOW, STACK, CREDENTIALS } from '../data/content'
 import { useLens, lensLabel } from './lens'
-import { GitHubIcon, LinkedInIcon, MailIcon } from './ui'
+import { Tile, Eyebrow, LinkedInIcon, ArrowIcon, FlipIcon } from './ui'
 
 const swap = {
   initial: { opacity: 0, y: 10 },
@@ -10,77 +10,127 @@ const swap = {
   exit: { opacity: 0, y: -6, transition: { duration: 0.15 } },
 }
 
+function KpiTile({ p }) {
+  return (
+    <a href={p.href} className="flip block h-full rounded-tile" aria-label={`${p.value} ${p.label}. Source: ${p.from}. Open the case study.`}>
+      <div className="flip-inner">
+        <div className="flip-face bg-white p-[22px] flex flex-col justify-between gap-4">
+          <span className="flip-hint inline-flex items-center gap-1.5 font-mono text-[11.5px] text-fog">
+            <FlipIcon className="w-3.5 h-3.5" /> hover for the source
+          </span>
+          <div>
+            <p className="font-disp font-bold text-[40px] sm:text-[48px] leading-none tracking-[-0.03em] lens-text">{p.value}</p>
+            <p className="mt-2 text-[14px] leading-snug text-[#3A414D]">{p.label}</p>
+            <p className="flip-src mt-2 font-mono text-[11.5px] leading-snug text-fog">Source: {p.from}</p>
+          </div>
+        </div>
+        <div className="flip-face flip-back lens-bg text-white p-[22px] flex flex-col justify-between gap-4" aria-hidden="true">
+          <span className="font-mono text-[11.5px] text-white/90">where this number comes from</span>
+          <div>
+            <p className="font-disp font-semibold text-[19px] sm:text-[21px] leading-tight">{p.from}</p>
+            <p className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-medium">Open the case study <ArrowIcon className="w-4 h-4" /></p>
+          </div>
+        </div>
+      </div>
+    </a>
+  )
+}
+
 export default function Hero() {
   const { lens } = useLens()
   const h = HERO[lens]
 
   return (
-    <section id="home" aria-labelledby="hero-name" className="relative pt-[148px] md:pt-[176px] pb-16 md:pb-24 border-b border-rule overflow-hidden">
-      {/* Faint measurement grid, the one decorative layer on the page. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[.55] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, #EEF1F5 1px, transparent 1px), linear-gradient(to bottom, #EEF1F5 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      />
-
-      <div className="relative max-w-page mx-auto px-5 md:px-8 grid lg:grid-cols-[1.2fr_.8fr] gap-12 lg:gap-16 items-start">
-        <div>
-          <h1 id="hero-name" className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px] text-slate mb-6">
-            <span className="font-semibold text-ink">{PROFILE.name}</span>
-            <span className="inline-flex items-center gap-1.5 text-[13px] text-slate bg-white border border-rule rounded-full px-2.5 py-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-              Open to data roles
-            </span>
-          </h1>
-
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div key={lens} {...swap}>
-              <p className="font-disp font-bold text-ink text-[44px] leading-[1.02] sm:text-[60px] md:text-[72px] tracking-[-0.025em]">
-                {h.title}
-              </p>
-              <p className="mt-6 text-[17px] md:text-[18.5px] leading-relaxed max-w-[600px]">{h.body}</p>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-3">
-            <a href="#work" className="inline-flex items-center font-medium text-[15px] text-white bg-ink hover:bg-[color:var(--lens)] px-4 sm:px-5 py-3 rounded-[10px] transition-colors">
-              See the work
+    <section id="home" aria-labelledby="hero-name" className="max-w-page mx-auto px-4 md:px-8 pt-2 md:pt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        {/* Intro */}
+        <Tile className="sm:col-span-2 lg:row-span-2 bg-night p-7 md:p-9 flex flex-col justify-between gap-8 text-[#C5CBD6]">
+          <div>
+            <h1 id="hero-name" className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="font-mono text-[12.5px] lens-text-dark">{PROFILE.name}</span>
+              <span className="inline-flex items-center gap-1.5 text-[12px] text-white bg-white/10 rounded-full px-2.5 py-1">
+                <span className="live-dot w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                Open to data roles
+              </span>
+            </h1>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div key={lens} {...swap}>
+                <p className="mt-5 font-disp font-bold text-white text-[38px] sm:text-[46px] xl:text-[52px] leading-[1.04] tracking-[-0.03em]">{h.title}</p>
+                <p className="mt-5 text-[16px] md:text-[16.5px] leading-relaxed max-w-[520px]">{h.body}</p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <a href="#work" className="inline-flex items-center gap-2 min-h-[46px] px-5 rounded-xl bg-white text-ink font-semibold text-[15px] hover:bg-[color:var(--lens-dark)] transition-colors">
+              See the work <ArrowIcon className="w-4 h-4" />
             </a>
-            <a href={`mailto:${PROFILE.email}`} className="inline-flex items-center gap-2 font-medium text-[15px] text-ink bg-white border border-rule hover:border-ink px-4 sm:px-5 py-3 rounded-[10px] transition-colors">
-              <MailIcon className="w-4 h-4" /> Email me
+            <a href={`mailto:${PROFILE.email}`} className="inline-flex items-center min-h-[46px] px-5 rounded-xl border border-white/20 text-white font-medium text-[15px] hover:border-white/60 transition-colors">
+              Email me
             </a>
-            <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)" className="w-11 h-11 rounded-[10px] border border-rule bg-white flex items-center justify-center text-ink hover:border-ink transition-colors">
+            <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)" className="w-[46px] h-[46px] rounded-xl border border-white/20 flex items-center justify-center text-white hover:border-white/60 transition-colors">
               <LinkedInIcon className="w-[17px] h-[17px]" />
             </a>
-            <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)" className="w-11 h-11 rounded-[10px] border border-rule bg-white flex items-center justify-center text-ink hover:border-ink transition-colors">
-              <GitHubIcon className="w-[17px] h-[17px]" />
-            </a>
           </div>
-        </div>
+        </Tile>
 
-        {/* Proof panel: every number links to the project that backs it. */}
-        <aside aria-label={`Proof for ${lensLabel(lens)}`} className="relative bg-white border border-rule rounded-[16px] overflow-hidden">
-          <div className="h-1 lens-bg" aria-hidden="true" />
-          <p className="px-6 pt-5 pb-1 text-[13.5px] text-fog">
-            Proof, <span className="lens-text font-medium">{lens === 'all' ? 'across my work' : lensLabel(lens)}</span>
-          </p>
+        {/* Headline numbers: flip for the source */}
+        <Tile delay={0.05} className="sm:col-span-2 lg:row-span-2">
+          <h2 className="sr-only">Proof, {lens === 'all' ? 'across my work' : `for ${lensLabel(lens)} roles`}</h2>
           <AnimatePresence mode="wait" initial={false}>
-            <motion.ul key={lens} {...swap} className="divide-y divide-rule">
+            <motion.ul key={lens} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.12 } }} transition={{ duration: 0.3 }} className="grid grid-cols-2 gap-3.5 h-full">
               {h.proof.map((p) => (
-                <li key={p.label}>
-                  <a href={p.href} className="group flex items-baseline gap-4 px-6 py-4 hover:bg-mist transition-colors">
-                    <span className="font-disp font-bold text-[34px] leading-none tracking-[-0.02em] lens-text min-w-[104px]">{p.value}</span>
-                    <span className="text-[14.5px] leading-snug text-slate group-hover:text-ink">{p.label}</span>
-                  </a>
-                </li>
+                <li key={p.label} className="min-h-[196px]"><KpiTile p={p} /></li>
               ))}
             </motion.ul>
           </AnimatePresence>
-        </aside>
+        </Tile>
+
+        {/* Now */}
+        <Tile delay={0.1} className="bg-white p-[22px] flex flex-col justify-between gap-6 min-h-[180px]">
+          <span className="inline-flex items-center gap-2 font-mono text-[12px] text-de">
+            <span className="live-dot w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" /> now
+          </span>
+          <div>
+            <p className="font-disp font-semibold text-[19px] leading-tight text-ink">{NOW.role} at {NOW.org}</p>
+            <p className="mt-1.5 text-[13.5px] text-fog">{NOW.place} · since {NOW.since}</p>
+          </div>
+        </Tile>
+
+        {/* Education */}
+        <Tile delay={0.15} className="bg-white p-[22px] flex flex-col justify-between gap-6 min-h-[180px]">
+          <Eyebrow>education</Eyebrow>
+          <div>
+            <p className="font-disp font-bold text-[44px] leading-none tracking-[-0.03em] text-ink">
+              4.0 <span className="text-[16px] font-medium tracking-normal text-fog">GPA</span>
+            </p>
+            <p className="mt-2 text-[14px] leading-snug text-[#3A414D]">{CREDENTIALS.degree.name}, {CREDENTIALS.degree.school}</p>
+          </div>
+        </Tile>
+
+        {/* Stack ticker + certifications */}
+        <Tile delay={0.2} className="sm:col-span-2 bg-white py-[22px] overflow-hidden flex flex-col justify-between gap-5">
+          <Eyebrow className="text-fog px-[22px]">the stack I ship with</Eyebrow>
+          <div className="ticker-wrap overflow-hidden">
+            <div className="ticker">
+              <ul aria-label="Tools" className="contents">
+                {STACK.map((s) => (
+                  <li key={s} className="whitespace-nowrap px-4 py-2.5 rounded-xl bg-chip text-[14.5px] font-medium text-ink">{s}</li>
+                ))}
+              </ul>
+              {STACK.map((s) => (
+                <span key={`dupe-${s}`} data-dupe aria-hidden="true" className="whitespace-nowrap px-4 py-2.5 rounded-xl bg-chip text-[14.5px] font-medium text-ink">{s}</span>
+              ))}
+            </div>
+          </div>
+          <ul aria-label="Certifications" className="px-[22px] flex flex-wrap items-center gap-2">
+            {CREDENTIALS.certs.map((c) => (
+              <li key={c.code} title={`${c.org} ${c.name}`} className="px-2.5 py-1.5 rounded-lg border border-line font-mono text-[12px] text-ink">
+                {c.org === 'AWS' ? `AWS ${c.code}` : c.code}
+              </li>
+            ))}
+            <li className="px-1 text-[13px] text-fog">{CREDENTIALS.certs.length} cloud certifications</li>
+          </ul>
+        </Tile>
       </div>
     </section>
   )

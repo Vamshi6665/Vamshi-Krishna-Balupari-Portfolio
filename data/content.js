@@ -11,67 +11,87 @@ export const PROFILE = {
   github: 'https://github.com/Vamshi6665',
 }
 
-// Role lenses. The selected lens re-tunes the hero, the work list, and each project's detail panel.
+// Role lenses. The selected lens re-tunes the hero, the KPI tiles, the work grid, and each project's detail panel.
+// color = accent on white (AA with white text too), onDark = accent on dark tiles, short = label in the switcher.
 export const LENSES = [
-  { id: 'all', label: 'All work', color: '#10192B' },
-  { id: 'da', label: 'Data Analyst', color: '#2563EB' },
-  { id: 'de', label: 'Data Engineer', color: '#047857' },
-  { id: 'ml', label: 'Machine Learning', color: '#7C3AED' },
-  { id: 'genai', label: 'Gen AI', color: '#C2410C' },
+  { id: 'all', label: 'All work', short: 'All', color: '#C2410C', onDark: '#FDBA74' },
+  { id: 'da', label: 'Data Analyst', short: 'Analyst', color: '#2563EB', onDark: '#93C5FD' },
+  { id: 'de', label: 'Data Engineer', short: 'Engineer', color: '#047857', onDark: '#6EE7B7' },
+  { id: 'ml', label: 'Machine Learning', short: 'ML', color: '#7C3AED', onDark: '#C4B5FD' },
+  { id: 'genai', label: 'Gen AI', short: 'Gen AI', color: '#BE185D', onDark: '#F9A8D4' },
 ]
 
+// Hero copy and the four KPI flip tiles per lens. `from` is printed on the back of each tile.
 export const HERO = {
   all: {
     title: 'Data pipelines, dashboards, and AI tools, built end to end.',
     body: '4+ years engineering data for AT&T and VFS Global at DXC Technology, an M.S. in Applied Computer Science with a 4.0 GPA, and production systems for a retail business today.',
     proof: [
-      { value: '5M+', label: 'records consolidated from 40+ regional sources', href: '#case-vfs' },
-      { value: '90%+', label: 'fewer recurring reporting errors', href: '#case-vfs' },
-      { value: '25%', label: 'fewer storage escalations', href: '#case-att' },
-      { value: '271', label: 'automated tests in a live inventory app', href: '#case-tifa-inventory' },
+      { value: '5M+', label: 'records consolidated from 40+ regional sources', from: 'VFS Global: Azure Data Factory and Databricks into Snowflake', href: '#case-vfs' },
+      { value: '90%+', label: 'fewer recurring reporting errors', from: 'VFS Global: automated validation and reconciliation', href: '#case-vfs' },
+      { value: '25%', label: 'fewer storage escalations', from: 'AT&T: 80% utilization alerts in Power BI', href: '#case-att' },
+      { value: '271', label: 'automated tests in a live inventory app', from: 'Tifa Inventory: Vitest and Playwright in CI', href: '#case-tifa-inventory' },
     ],
   },
   da: {
     title: 'Metrics leaders can act on.',
     body: 'KPI models and Power BI reporting over millions of records, from executive views across 40+ regions to capacity alerts, recruiting funnels, and inventory dashboards.',
     proof: [
-      { value: '90%+', label: 'fewer reporting errors after automated validation', href: '#case-vfs' },
-      { value: '25%', label: 'fewer escalations from 80% threshold alerts', href: '#case-att' },
-      { value: '80/80', label: 'recruiting KPIs matching Power BI exactly', href: '#case-recruitment-hub' },
-      { value: '8', label: 'customer and product KPIs from 3.4M orders', href: '#case-instacart' },
+      { value: '90%+', label: 'fewer reporting errors after automated validation', from: 'VFS Global: schema, duplicate, and integrity checks', href: '#case-vfs' },
+      { value: '25%', label: 'fewer escalations from 80% threshold alerts', from: 'AT&T: Power BI exception reports', href: '#case-att' },
+      { value: '80/80', label: 'recruiting KPIs matching Power BI exactly', from: 'Recruitment Hub: DuckDB parity script', href: '#case-recruitment-hub' },
+      { value: '8', label: 'customer and product KPIs from 3.4M orders', from: 'Instacart: PySpark marts for Power BI', href: '#case-instacart' },
     ],
   },
   de: {
     title: 'Pipelines that hold up in production.',
     body: 'Azure Data Factory, Databricks, AWS Glue, Snowflake, and Athena pipelines with layered storage, incremental loads, star schemas, and reconciliation built in.',
     proof: [
-      { value: '40+', label: 'SQL Server sources consolidated into Snowflake', href: '#case-vfs' },
-      { value: '5M+', label: 'records in curated reporting datasets', href: '#case-vfs' },
-      { value: '32M+', label: 'order lines processed in Spark', href: '#case-instacart' },
-      { value: '61', label: 'dbt data tests on a healthcare star schema', href: '#case-hospital' },
+      { value: '40+', label: 'SQL Server sources consolidated into Snowflake', from: 'VFS Global: ADF ingestion, Databricks PySpark', href: '#case-vfs' },
+      { value: '5M+', label: 'records in curated reporting datasets', from: 'VFS Global: star schemas with SQL MERGE', href: '#case-vfs' },
+      { value: '32M+', label: 'order lines processed in Spark', from: 'Instacart: Dockerized Spark and Airflow', href: '#case-instacart' },
+      { value: '61', label: 'dbt data tests on a healthcare star schema', from: 'Hospital Readmissions: dbt on PostgreSQL', href: '#case-hospital' },
     ],
   },
   ml: {
     title: 'Models that explain their decisions.',
     body: 'Calibrated scikit-learn models with SHAP and Anchor explanations, plus utilization and growth features for anomaly analysis on device telemetry.',
     proof: [
-      { value: '95.6%', label: 'Random Forest accuracy with explained predictions', href: '#case-xai' },
-      { value: '0.97+', label: 'Anchor rule precision on sample cases', href: '#case-xai' },
-      { value: '94.3%', label: 'accuracy from a readable 5-rule model', href: '#case-xai' },
-      { value: '5', label: 'explainability studies with code', href: '#case-xai' },
+      { value: '95.6%', label: 'Random Forest accuracy with explained predictions', from: 'XAI study: breast cancer data with Anchor', href: '#case-xai' },
+      { value: '0.97+', label: 'Anchor rule precision on sample cases', from: 'XAI study: local Anchor rules', href: '#case-xai' },
+      { value: '94.3%', label: 'accuracy from a readable 5-rule model', from: 'XAI study: rule-based interpretable model', href: '#case-xai' },
+      { value: '5', label: 'explainability studies with code', from: 'Explainable AI research notebooks', href: '#case-xai' },
     ],
   },
   genai: {
     title: 'LLM apps grounded in real data.',
     body: 'Agents and assistants on the OpenAI, GitHub Copilot, and Claude SDKs, built with an AI-assisted workflow where tests, not prompts, decide what ships.',
     proof: [
-      { value: '3', label: 'LLM features built into working apps', href: '#build-with-ai' },
-      { value: '2', label: 'LLM SDKs benchmarked for a research paper', href: '#case-coderepo' },
-      { value: '271', label: 'tests guarding an AI-assisted build', href: '#case-tifa-inventory' },
-      { value: '0', label: 'API keys exposed to the browser', href: '#case-tifa-website' },
+      { value: '3', label: 'LLM features built into working apps', from: 'Inventory assistant, flavor guide, codebase agent', href: '#build-with-ai' },
+      { value: '2', label: 'LLM SDKs benchmarked for a research paper', from: 'CodeRepoReader AI: OpenAI vs GitHub Copilot SDK', href: '#case-coderepo' },
+      { value: '271', label: 'tests guarding an AI-assisted build', from: 'Tifa Inventory: tests decide what ships', href: '#case-tifa-inventory' },
+      { value: '0', label: 'API keys exposed to the browser', from: 'Tifa Website: server-side AI proxy', href: '#case-tifa-website' },
     ],
   },
 }
+
+// Small tiles in the intro grid.
+export const NOW = { role: 'Data Associate', org: 'Tifa Chocolate & Gelato', place: 'Walnut Creek, CA', since: 'Jul 2026' }
+export const STACK = ['Azure Data Factory', 'Databricks', 'PySpark', 'Snowflake', 'AWS Glue', 'Amazon Athena', 'Power BI', 'DAX', 'Apache Airflow', 'dbt', 'scikit-learn', 'SHAP', 'Claude API', 'React', 'Supabase', 'Docker']
+
+// One tile per project in the Work grid, in grid order. `look` picks the tile's visual.
+export const WORK_TILES = [
+  { id: 'tifa-inventory', look: 'hero', eyebrow: 'live product · 2026', line: 'Live counts, forecasts, and reorders for a gelato shop. 271 tests, $0 a month.' },
+  { id: 'recruitment-hub', look: 'wide', eyebrow: 'analytics app · 2026', line: 'Athena over S3, matching Power BI on 80 of 80 checks.' },
+  { id: 'vfs', look: 'dark', eyebrow: 'client work · dxc', big: '40+ → 1', line: 'regional sources into one Snowflake model' },
+  { id: 'att', look: 'gauge', eyebrow: 'client work · dxc', gauge: 80, gaugeLabel: 'alert at 80% utilization', line: '25% fewer storage escalations' },
+  { id: 'tifa-website', look: 'shot', eyebrow: 'customer site · 2026', line: 'AI flavor guide with Claude' },
+  { id: 'xai', look: 'stat', eyebrow: 'research', big: '95.6%', line: 'accuracy, each prediction explained with SHAP and Anchor' },
+  { id: 'coderepo', look: 'chat', eyebrow: 'research · paper', ask: 'Where is authentication handled in this repo?', line: 'OpenAI vs GitHub Copilot SDKs' },
+  { id: 'tifa-aws', look: 'flow', eyebrow: 'company work · 2026', flow: ['S3', 'Glue', 'Athena', 'QuickSight'], line: 'Inventory analysis dashboards on AWS' },
+  { id: 'instacart', look: 'wide-stat', eyebrow: 'big data · 2025', big: '32M+', line: 'order lines through Spark and Airflow into customer segments and product marts' },
+  { id: 'hospital', look: 'wide-stat', eyebrow: 'in progress', big: '61', line: 'dbt data tests on a 101,766-encounter healthcare star schema' },
+]
 
 // Case studies, in the order shown under "All work".
 // pipeline = Data Engineer view, kpis = Data Analyst view, ml / genai = their views.
