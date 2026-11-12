@@ -1,6 +1,6 @@
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import '@fontsource-variable/bricolage-grotesque/opsz.css'
+import '@fontsource-variable/sora/wght.css'
+import '@fontsource-variable/inter/wght.css'
+import '@fontsource-variable/jetbrains-mono/wght.css'
 import './globals.css'
 import Providers from '../components/Providers'
 
@@ -18,11 +18,14 @@ export const metadata = {
   twitter: { card: 'summary', title: TITLE, description: DESCRIPTION },
 }
 
-export const viewport = { themeColor: '#FFFFFF', width: 'device-width', initialScale: 1 }
+export const viewport = { themeColor: '#ECEEF2', width: 'device-width', initialScale: 1 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>

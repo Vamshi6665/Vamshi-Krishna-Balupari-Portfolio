@@ -4,23 +4,28 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        paper: '#FFFFFF',
-        mist: '#F4F6F9',
-        ink: '#10192B',
-        slate: '#4A5468',
-        fog: '#687185',
-        rule: '#E3E7EE',
+        ground: '#ECEEF2', // page background between tiles
+        tile: '#FFFFFF',
+        chip: '#F3F4F7', // inset panels and chips inside tiles
+        night: '#11151C', // dark tiles and headings
+        ink: '#11151C',
+        slate: '#474F5C', // body text
+        fog: '#5A6270', // muted text (AA on white, ground, and chip)
+        line: '#D5D9E0',
+        rule: '#E3E6EB',
+        // Role lens colors (AA with white text)
         da: '#2563EB',
         de: '#047857',
         ml: '#7C3AED',
-        gi: '#C2410C',
+        gi: '#BE185D',
       },
       fontFamily: {
-        disp: ["'Bricolage Grotesque Variable'", 'var(--font-geist-sans)', 'system-ui', 'sans-serif'],
-        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
+        disp: ["'Sora Variable'", 'system-ui', 'sans-serif'],
+        sans: ["'Inter Variable'", 'system-ui', 'sans-serif'],
+        mono: ["'JetBrains Mono Variable'", 'ui-monospace', 'monospace'],
       },
-      maxWidth: { page: '1200px' },
+      borderRadius: { tile: '22px' },
+      maxWidth: { page: '1280px' },
     },
   },
   plugins: [],

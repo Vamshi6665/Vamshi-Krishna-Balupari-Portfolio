@@ -15,8 +15,7 @@ const LINKS = [
 export function LensSwitch({ className = '' }) {
   const { lens, setLens } = useLens()
   return (
-    <div role="group" aria-label="View my work as" className={`flex items-center gap-1 overflow-x-auto ${className}`}>
-      <span className="shrink-0 text-[13px] text-fog mr-2">View as</span>
+    <div role="group" aria-label="View my work as" className={`flex items-center gap-1 p-[5px] bg-white rounded-full shadow-[0_1px_0_rgba(17,21,28,.06)] ${className}`}>
       {LENSES.map((l) => {
         const on = lens === l.id
         return (
@@ -25,15 +24,13 @@ export function LensSwitch({ className = '' }) {
             type="button"
             onClick={() => setLens(l.id)}
             aria-pressed={on}
-            className={`shrink-0 inline-flex items-center gap-2 text-[13.5px] font-medium px-3 py-1.5 rounded-full border transition-colors ${
-              on ? 'text-white border-transparent' : 'text-ink border-rule bg-white hover:border-ink/40'
+            title={l.label}
+            className={`shrink-0 min-h-[38px] px-3.5 rounded-full text-[14px] transition-colors ${
+              on ? 'text-white font-semibold' : 'text-[#3A414D] font-medium hover:bg-chip'
             }`}
             style={on ? { backgroundColor: l.color } : undefined}
           >
-            {l.id !== 'all' && (
-              <span aria-hidden="true" className="w-2 h-2 rounded-full" style={{ backgroundColor: on ? '#fff' : l.color }} />
-            )}
-            {l.label}
+            {l.short}
           </button>
         )
       })}
@@ -65,69 +62,78 @@ export default function Nav() {
   }, [open])
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl border-b border-rule">
-      <nav aria-label="Main" className="h-14 max-w-page mx-auto px-5 md:px-8 flex items-center justify-between">
-        <a href="#home" className="font-disp font-bold text-[17px] text-ink tracking-[-0.01em]">
-          Vamshi Krishna Balupari
+    <header className="sticky top-0 z-50 bg-ground/85 backdrop-blur-xl">
+      <nav aria-label="Main" className="max-w-page mx-auto px-4 md:px-8 h-[72px] flex items-center justify-between gap-4">
+        <a href="#home" className="flex items-center gap-3 shrink-0">
+          <span aria-hidden="true" className="w-[42px] h-[42px] rounded-xl bg-night text-white flex items-center justify-center font-disp font-bold text-[15px]">VK</span>
+          <span>
+            <span className="block font-disp font-semibold text-[16px] leading-tight text-ink">{PROFILE.name}</span>
+            <span className="block text-[13px] text-fog">{PROFILE.location}</span>
+          </span>
         </a>
-        <ul className="hidden md:flex items-center gap-1">
+
+        <LensSwitch className="hidden xl:flex" />
+
+        <ul className="hidden lg:flex items-center gap-0.5">
           {LINKS.map((l) => (
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
                 aria-current={active === l.id ? 'true' : undefined}
-                className={`text-[14px] px-3 py-1.5 rounded-md transition-colors ${active === l.id ? 'text-ink font-medium' : 'text-fog hover:text-ink'}`}
+                className={`text-[14px] px-2.5 py-2 rounded-lg transition-colors ${active === l.id ? 'text-ink font-semibold' : 'text-fog hover:text-ink'}`}
               >
                 {l.label}
               </a>
             </li>
           ))}
-          <li className="ml-2">
+          <li className="ml-1.5">
             <a
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile (opens in a new tab)"
-              className="w-9 h-9 rounded-lg border border-rule flex items-center justify-center text-ink hover:border-ink transition-colors"
+              className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-ink hover:bg-night hover:text-white transition-colors"
             >
               <GitHubIcon className="w-[17px] h-[17px]" />
             </a>
           </li>
         </ul>
+
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? 'Close menu' : 'Open menu'}
-          className="md:hidden w-11 h-11 -mr-2 rounded-lg flex items-center justify-center text-ink"
+          className="lg:hidden w-11 h-11 rounded-xl bg-white flex items-center justify-center text-ink"
         >
           {open ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
         </button>
       </nav>
 
+      {/* On smaller screens the role switcher gets its own scrollable row. */}
+      <div className="xl:hidden max-w-page mx-auto px-4 md:px-8 pb-3 overflow-x-auto">
+        <LensSwitch className="w-max" />
+      </div>
+
       {open && (
-        <div id="mobile-menu" className="md:hidden border-t border-rule bg-white">
-          <ul className="px-5 py-2">
+        <div id="mobile-menu" className="lg:hidden max-w-page mx-auto px-4 md:px-8 pb-4">
+          <ul className="bg-white rounded-tile p-2">
             {LINKS.map((l) => (
               <li key={l.id}>
-                <a href={`#${l.id}`} onClick={() => setOpen(false)} className="block py-3 text-[16px] text-ink border-b border-rule last:border-0">
+                <a href={`#${l.id}`} onClick={() => setOpen(false)} className="block px-4 py-3 rounded-xl text-[16px] text-ink hover:bg-chip">
                   {l.label}
                 </a>
               </li>
             ))}
             <li>
-              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 py-3 text-[16px] text-ink">
+              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 rounded-xl text-[16px] text-ink hover:bg-chip">
                 <GitHubIcon className="w-5 h-5" /> GitHub <span aria-hidden="true">↗</span>
               </a>
             </li>
           </ul>
         </div>
       )}
-
-      <div className="border-t border-rule">
-        <LensSwitch className="max-w-page mx-auto px-5 md:px-8 h-12" />
-      </div>
     </header>
   )
 }

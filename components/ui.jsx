@@ -1,4 +1,6 @@
-// Shared building blocks: rich text, buttons, section headings, device frames, icons.
+'use client'
+// Shared building blocks: tiles, rich text, buttons, section headings, device frames, icons.
+import { useEffect, useRef, useState } from 'react'
 
 // Renders **bold** segments inside a plain string.
 export function Rich({ text, strongClass = 'text-ink font-semibold' }) {
@@ -7,32 +9,64 @@ export function Rich({ text, strongClass = 'text-ink font-semibold' }) {
   )
 }
 
-export function SectionHead({ id, title, intro }) {
+// A bento tile that rises into place once when scrolled into view.
+// Tiles are visible in the HTML; they only start hidden once scripts are running (see .js .reveal in globals.css).
+export function Tile({ as: Comp = 'div', className = '', delay = 0, style, children, ...rest }) {
+  const ref = useRef(null)
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !('IntersectionObserver' in window)) return setShown(true)
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setShown(true)
+          io.disconnect()
+        }
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
   return (
-    <div className="mb-10 md:mb-14 max-w-[720px]">
-      <h2 id={id} className="font-disp font-bold text-ink text-[34px] md:text-[48px] leading-[1.05] tracking-[-0.02em]">
+    <Comp ref={ref} className={`reveal ${shown ? 'in' : ''} rounded-tile ${className}`} style={{ ...style, '--d': `${delay}s` }} {...rest}>
+      {children}
+    </Comp>
+  )
+}
+
+// Small monospace label used at the top of tiles.
+export function Eyebrow({ children, className = 'text-fog' }) {
+  return <p className={`font-mono text-[12px] leading-none ${className}`}>{children}</p>
+}
+
+export function SectionHead({ id, title, intro, aside }) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-3 mb-5 md:mb-6 px-1">
+      <h2 id={id} className="font-disp font-bold text-ink text-[34px] md:text-[44px] leading-[1.02] tracking-[-0.03em]">
         {title}
       </h2>
-      {intro && <p className="mt-4 text-[17px] leading-relaxed text-slate">{intro}</p>}
+      {(intro || aside) && <div className="max-w-[560px] text-[15px] leading-relaxed text-fog">{intro}{aside}</div>}
     </div>
   )
 }
 
-// External link button. Primary = solid ink, secondary = outline.
+// External link button. Primary = solid night (lens on hover), secondary = outline.
 export function LinkButton({ href, children, primary = false, note, icon = 'github', className = '' }) {
   const look = primary
-    ? 'bg-ink text-white hover:bg-[color:var(--lens)]'
-    : 'bg-white text-ink border border-rule hover:border-ink'
+    ? 'bg-night text-white hover:bg-[color:var(--lens)]'
+    : 'bg-white text-ink border border-line hover:border-ink'
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center gap-2 font-medium text-[14.5px] px-4 py-2.5 rounded-[10px] transition-colors ${look} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 min-h-[44px] font-medium text-[14.5px] px-4 py-2.5 rounded-xl transition-colors ${look} ${className}`}
     >
       {icon === 'github' && href.includes('github.com') && <GitHubIcon className="w-4 h-4" />}
       <span>{children}</span>
-      {note && <span className={primary ? 'text-white/70' : 'text-fog'}>({note})</span>}
+      {note && <span className={primary ? 'text-white/75' : 'text-fog'}>({note})</span>}
       <span aria-hidden="true">↗</span>
       <span className="sr-only">(opens in a new tab)</span>
     </a>
@@ -41,15 +75,15 @@ export function LinkButton({ href, children, primary = false, note, icon = 'gith
 
 export function BrowserFrame({ src, w, h, label, caption, eager = false }) {
   return (
-    <figure className="rounded-[14px] border border-rule bg-white overflow-hidden shadow-[0_28px_60px_-34px_rgba(16,25,43,.45)]">
-      <div className="flex items-center gap-2 h-9 px-3.5 border-b border-rule bg-mist">
+    <figure className="rounded-[16px] border border-line bg-white overflow-hidden shadow-[0_28px_60px_-34px_rgba(17,21,28,.45)]">
+      <div className="flex items-center gap-2 h-9 px-3.5 border-b border-rule bg-chip">
         <span className="flex gap-1.5" aria-hidden="true">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-line" />
+          <span className="w-2.5 h-2.5 rounded-full bg-line" />
+          <span className="w-2.5 h-2.5 rounded-full bg-line" />
         </span>
         {label && (
-          <span className="ml-2 flex-1 truncate text-center font-mono text-[11.5px] text-fog bg-white border border-rule rounded-md px-2 py-0.5">
+          <span className="ml-2 flex-1 min-w-0 truncate text-center font-mono text-[11.5px] text-fog bg-white border border-rule rounded-md px-2 py-0.5">
             {label}
           </span>
         )}
@@ -63,7 +97,7 @@ export function BrowserFrame({ src, w, h, label, caption, eager = false }) {
 
 export function PhoneFrame({ src, w, h, caption, className = '' }) {
   return (
-    <figure className={`rounded-[26px] border-[5px] border-ink bg-ink overflow-hidden shadow-[0_24px_50px_-26px_rgba(16,25,43,.6)] ${className}`}>
+    <figure className={`rounded-[26px] border-[5px] border-night bg-night overflow-hidden shadow-[0_24px_50px_-26px_rgba(17,21,28,.6)] ${className}`}>
       <a href={src} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size screenshot: ${caption}`}>
         <img src={src} alt={caption} width={w} height={h} loading="lazy" decoding="async" className="block w-full h-auto rounded-[20px]" />
       </a>
@@ -90,3 +124,5 @@ export const PinIcon = (p) => stroke(<><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8
 export const MenuIcon = (p) => stroke(<><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></>, p)
 export const CloseIcon = (p) => stroke(<><path d="M6 6l12 12" /><path d="M18 6 6 18" /></>, p)
 export const LockIcon = (p) => stroke(<><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></>, p)
+export const ArrowIcon = (p) => stroke(<path d="M5 12h14M13 6l6 6-6 6" />, p)
+export const FlipIcon = (p) => stroke(<><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" /><path d="M21 3v5h-5" /><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16" /><path d="M3 21v-5h5" /></>, p)
