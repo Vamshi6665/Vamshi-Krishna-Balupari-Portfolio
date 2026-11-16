@@ -2,100 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 
-/* The active role lens accent (on white) and its light tint (on dark tiles).
-   Registered so the whole page re-tints smoothly when the lens changes. */
-@property --lens {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: #C2410C;
+/* Three gradient palettes. Lumina is the default; the switcher in the nav sets data-palette on <html>.
+   Values are RGB triplets so Tailwind can apply opacity (bg-night/80 etc.). */
+:root,
+:root[data-palette='lumina'] {
+  --bg: 11 10 28;        /* #0B0A1C */
+  --bg-2: 20 17 44;      /* #14112C */
+  --ink: 238 235 250;
+  --muted: 169 164 199;
+  --accent: 185 166 255;
+  --g1: 124 92 255;      /* violet */
+  --g2: 255 95 162;      /* rose */
+  --g3: 45 212 240;      /* cyan */
+  --on-grad: 255 255 255;
 }
-@property --lens-dark {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: #FDBA74;
+:root[data-palette='aurora'] {
+  --bg: 5 20 22;
+  --bg-2: 10 33 36;
+  --ink: 230 248 245;
+  --muted: 154 190 186;
+  --accent: 110 231 216;
+  --g1: 20 184 166;
+  --g2: 34 211 238;
+  --g3: 163 230 53;
+  --on-grad: 3 26 24;
+}
+:root[data-palette='ember'] {
+  --bg: 21 18 24;
+  --bg-2: 36 30 38;
+  --ink: 250 240 230;
+  --muted: 196 178 168;
+  --accent: 255 179 71;
+  --g1: 255 152 0;
+  --g2: 244 63 94;
+  --g3: 251 191 36;
+  --on-grad: 26 15 0;
 }
 
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { @apply bg-ground text-slate font-sans antialiased; }
-
-.lens-root { transition: --lens 450ms ease, --lens-dark 450ms ease; }
-
-/* Anchors clear the sticky header (two rows on small screens). */
-section[id], article[id] { scroll-margin-top: 136px; }
-@media (min-width: 1280px) { section[id], article[id] { scroll-margin-top: 92px; } }
-
+html { overflow-x: clip; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: rgb(var(--bg)); color-scheme: dark; }
+body { @apply bg-night text-ink font-sans antialiased; font-size: 16px; line-height: 1.6; overflow-x: clip; }
 h1, h2, h3, h4 { text-wrap: balance; }
 p, li, dd { text-wrap: pretty; }
+::selection { background: rgb(var(--g1) / 0.45); color: rgb(var(--ink)); }
+section[id] { scroll-margin-top: 72px; }
 
-::selection { background: color-mix(in srgb, var(--lens) 22%, white); }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 6px; }
 
-a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--lens);
-  outline-offset: 3px;
-  border-radius: 10px;
+/* Gradient helpers */
+.grad-text {
+  background: linear-gradient(100deg, rgb(var(--g1)) 0%, rgb(var(--g2)) 55%, rgb(var(--g3)) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.grad-bg { background: linear-gradient(100deg, rgb(var(--g1)), rgb(var(--g2))); color: rgb(var(--on-grad)); }
+.grad-border { position: relative; }
+.grad-border::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: linear-gradient(140deg, rgb(var(--g1) / .7), rgb(var(--g2) / .25) 40%, rgb(255 255 255 / .06) 60%, rgb(var(--g3) / .5));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.glass { background: rgb(var(--bg-2) / 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgb(255 255 255 / 0.08); }
+
+/* Ambient mesh: three slow blobs, a cursor glow, and film grain */
+.mesh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.mesh .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .45; will-change: transform; }
+.mesh .b1 { width: 52vw; height: 52vw; left: -14vw; top: -18vw; background: rgb(var(--g1)); animation: drift1 26s ease-in-out infinite alternate; }
+.mesh .b2 { width: 44vw; height: 44vw; right: -12vw; top: 18vh; background: rgb(var(--g2)); opacity: .32; animation: drift2 32s ease-in-out infinite alternate; }
+.mesh .b3 { width: 40vw; height: 40vw; left: 22vw; bottom: -22vw; background: rgb(var(--g3)); opacity: .22; animation: drift3 38s ease-in-out infinite alternate; }
+.mesh .cursor { position: absolute; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(var(--g1) / .22), transparent 70%); transform: translate3d(var(--mx, 50vw), var(--my, 30vh), 0); transition: transform .25s ease-out; }
+.mesh .veil { position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 0%, transparent 0%, rgb(var(--bg) / .55) 60%, rgb(var(--bg) / .85) 100%); }
+.grain { position: fixed; inset: -50%; z-index: 1; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+@keyframes drift1 { to { transform: translate3d(12vw, 10vh, 0) scale(1.08); } }
+@keyframes drift2 { to { transform: translate3d(-10vw, 14vh, 0) scale(.92); } }
+@keyframes drift3 { to { transform: translate3d(14vw, -10vh, 0) scale(1.1); } }
+
+/* Section titles: a giant outlined word behind the real heading (after the reference portfolio) */
+.ghost {
+  font-family: 'Unbounded Variable', system-ui, sans-serif; font-weight: 800; line-height: .9; letter-spacing: -.02em;
+  font-size: clamp(54px, 11.5vw, 168px); color: transparent; white-space: nowrap; user-select: none;
+  -webkit-text-stroke: 1px rgb(var(--ink) / .12);
+  background: linear-gradient(180deg, rgb(var(--g1) / .14), transparent 75%); -webkit-background-clip: text; background-clip: text;
 }
 
-@layer utilities {
-  .lens-text { color: var(--lens); }
-  .lens-text-dark { color: var(--lens-dark); }
-  .lens-bg { background-color: var(--lens); }
-  .lens-border { border-color: var(--lens); }
-  .lens-tint { background-color: color-mix(in srgb, var(--lens) 8%, white); }
+/* Hero name: one soft sheen across the whole name */
+.name-sheen {
+  background: linear-gradient(172deg, rgb(var(--ink)) 30%, rgb(var(--accent)) 78%, rgb(var(--g2)) 110%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
-/* Tiles rise in on scroll. Only hidden when scripts run, so the page never renders blank. */
-.js .reveal:not(.in) { opacity: 0; }
-.js .reveal.in { animation: rise .55s cubic-bezier(.22, 1, .36, 1) var(--d, 0s) backwards; }
-@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+/* Typed caret */
+.caret { display: inline-block; width: .08em; height: .95em; margin-left: .06em; transform: translateY(.12em); background: rgb(var(--accent)); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
 
-/* Tiles lift on hover. */
-.tile-lift { transition: transform .25s ease, box-shadow .25s ease, opacity .35s ease; }
-a.tile-lift:hover, a.tile-lift:focus-visible { transform: translateY(-3px); box-shadow: 0 18px 40px -22px rgba(17, 21, 28, .35); }
+/* Live pulse */
+.pulse { position: relative; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #4ADE80; }
+.pulse::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #4ADE80; opacity: 0; animation: ping 2.2s ease-out infinite; }
+@keyframes ping { 0% { transform: scale(.5); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
 
-/* KPI flip tiles: number on the front, its source on the back. */
-.flip { perspective: 1000px; }
-.flip-inner {
-  position: relative;
-  height: 100%;
-  min-height: 196px;
-  transform-style: preserve-3d;
-  transition: transform .6s cubic-bezier(.3, 1.3, .6, 1);
-}
-.flip-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 22px;
-}
+/* Flip cards (experience) */
+.flip { perspective: 1400px; }
+.flip-inner { position: relative; height: 100%; transition: transform .7s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+.flip.is-flipped .flip-inner { transform: rotateY(180deg); }
+@media (hover: hover) and (pointer: fine) { .flip:hover .flip-inner { transform: rotateY(180deg); } }
+.flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .flip-back { transform: rotateY(180deg); }
-.flip-src { display: none; }
-@media (hover: hover) {
-  .flip:hover .flip-inner { transform: rotateY(180deg); }
-}
-.flip:focus-visible .flip-inner { transform: rotateY(180deg); }
-/* Touch screens can't hover: show the source on the front instead of flipping. */
-@media (hover: none) {
-  .flip-back { display: none; }
-  .flip-src { display: block; }
-  .flip-hint { display: none; }
-}
 
-/* Endless stack ticker. */
-.ticker { display: flex; gap: 10px; width: max-content; animation: ticker 36s linear infinite; }
-.ticker-wrap:hover .ticker { animation-play-state: paused; }
-@keyframes ticker { to { transform: translateX(-50%); } }
+/* Flow line in client diagrams */
+.flow-line { background: linear-gradient(90deg, rgb(var(--g1) / .0), rgb(var(--g1) / .9), rgb(var(--g2) / .9), rgb(var(--g2) / 0)); background-size: 200% 100%; animation: flow 3.5s linear infinite; }
+@keyframes flow { from { background-position: 200% 0; } to { background-position: 0 0; } }
 
-.live-dot { animation: live 1.6s ease-in-out infinite; }
-@keyframes live { 50% { opacity: .3; } }
+/* Project preview mask (hover overlay, after the reference grid) */
+.mask { opacity: 0; transition: opacity .35s ease; }
+.card:hover .mask, .card:focus-within .mask { opacity: 1; }
+.card .cover-img { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.card:hover .cover-img { transform: scale(1.035); }
+
+/* Hero entrance: one orchestrated sequence on load */
+.rise { opacity: 0; transform: translateY(18px); animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .lens-root { transition: none; }
-  .js .reveal:not(.in) { opacity: 1; }
-  .js .reveal.in { animation: none; }
-  .tile-lift, .flip-inner { transition: none; }
-  .ticker, .live-dot { animation: none; }
-  .ticker { flex-wrap: wrap; width: auto; padding: 0 22px; }
-  .ticker [data-dupe] { display: none; }
+  .mesh .blob, .flow-line, .pulse::after, .caret { animation: none !important; }
+  .rise { animation: none; opacity: 1; transform: none; }
+  .flip-inner, .card .cover-img, .mesh .cursor { transition: none !important; }
 }

@@ -1,79 +1,106 @@
 'use client'
-import { EXPERIENCE } from '../data/content'
-import { Rich, SectionHead, Tile, Eyebrow, ArrowIcon } from './ui'
+// Work experience as flip cards (after the reference portfolio): role on the front, what I did on the back.
+// Hover flips on desktop; the button flips on touch and keyboard.
+import { useState } from 'react'
+import { Icon, SectionTitle } from './ui'
 
-function Bullets({ items }) {
-  return (
-    <ul className="space-y-2">
-      {items.map((b) => (
-        <li key={b} className="relative pl-5 text-[15px] leading-relaxed">
-          <span aria-hidden="true" className="absolute left-0 top-[0.6em] w-2 h-2 rounded-full lens-bg" />
-          <Rich text={b} />
-        </li>
-      ))}
-    </ul>
-  )
-}
+const ROLES = [
+  {
+    org: 'Tifa Chocolate & Gelato',
+    legal: 'LAMA Desserts LLC',
+    role: 'Data Associate',
+    front: 'Inventory analytics on AWS, plus the inventory system and website the shop runs on.',
+    dates: 'Jul 2026 – Present',
+    place: 'Walnut Creek, CA',
+    points: [
+      'Built AWS Glue ETL that consolidates sales, product, inventory, and vendor extracts from S3 into validated datasets.',
+      'Athena views and QuickSight dashboards for inventory analysis, refreshed on a schedule.',
+      'Designed, built, and shipped the shop’s inventory system and its website.',
+    ],
+  },
+  {
+    org: 'Northwest Missouri State University',
+    role: 'Research Assistant',
+    front: 'Explainable-AI research and the LLM codebase agent behind a co-authored paper.',
+    dates: 'May 2025 – Apr 2026',
+    place: 'Maryville, MO',
+    points: [
+      'Explainable-AI framework pairing predictions with SHAP contributions and Anchor rules.',
+      'Built CodeRepoReader and benchmarked the OpenAI and GitHub Copilot SDKs for a co-authored paper.',
+      'Reproducible Python and SQL workflows for preparing and validating ML datasets.',
+    ],
+  },
+  {
+    org: 'DXC Technology',
+    role: 'Analyst',
+    front: 'Data platforms for enterprise clients AT&T and VFS Global, on Azure and AWS.',
+    dates: 'Jul 2021 – Dec 2024',
+    place: 'Hyderabad, India',
+    points: [
+      'VFS Global: Data Factory and Databricks pipelines from 40+ SQL Server sources into Snowflake; 90%+ fewer reporting errors.',
+      'AT&T: AWS Glue pipelines and Power BI exception reports; 25% fewer storage escalations.',
+      'Recognized with a Best Employee award.',
+    ],
+  },
+]
 
-function CaseLinks({ links }) {
-  if (!links) return null
+function FlipCard({ r }) {
+  const [flipped, setFlipped] = useState(false)
   return (
-    <p className="mt-5 flex flex-wrap gap-2 text-[14px]">
-      {links.map((l) => (
-        <a key={l.href} href={l.href} className="group inline-flex items-center gap-1.5 min-h-[36px] px-3 rounded-lg bg-chip text-ink font-medium hover:bg-night hover:text-white transition-colors">
-          {l.label} <ArrowIcon className="w-3.5 h-3.5" />
-        </a>
-      ))}
-    </p>
+    <li className={`flip h-[400px] ${flipped ? 'is-flipped' : ''}`}>
+      <div className="flip-inner">
+        <div className="flip-face glass grad-border rounded-[26px] p-7 flex flex-col">
+          <span aria-hidden="true" className="grid place-items-center w-14 h-14 rounded-2xl grad-bg font-disp font-bold text-[18px]">
+            {r.org.split(' ').map((w) => w[0]).join('').slice(0, 2)}
+          </span>
+          <h3 className="mt-7 font-disp font-semibold text-[22px] leading-tight tracking-[-0.015em]">{r.org}</h3>
+          {r.legal && <p className="text-[13px] text-muted mt-1">{r.legal}</p>}
+          <p className="mt-4 text-accent text-[16px] font-medium">{r.role}</p>
+          <p className="mt-1 text-[14.5px] text-ink/80">{r.dates}</p>
+          <p className="text-[14px] text-muted">{r.place}</p>
+          <p className="mt-5 text-[15px] leading-relaxed text-ink/80">{r.front}</p>
+          <button
+            type="button"
+            onClick={() => setFlipped(true)}
+            tabIndex={flipped ? -1 : 0}
+            className="mt-auto self-start inline-flex items-center gap-2 text-[13.5px] text-muted hover:text-ink"
+            aria-label={`Show what I did at ${r.org}`}
+          >
+            <Icon name="flip" className="w-4 h-4" /> What I did here
+          </button>
+        </div>
+        <div className="flip-face flip-back rounded-[26px] p-7 flex flex-col bg-[linear-gradient(150deg,rgb(var(--g1)/.35),rgb(var(--bg-2))_45%,rgb(var(--g2)/.22))] border border-white/12">
+          <p className="text-[13px] text-muted">{r.role}, {r.dates}</p>
+          <h3 className="mt-1 font-disp font-semibold text-[17px]">{r.org}</h3>
+          <ul className="mt-4 space-y-3 text-[14.5px] leading-relaxed text-ink/90">
+            {r.points.map((p) => (
+              <li key={p} className="flex gap-2.5"><span aria-hidden="true" className="mt-2 w-1.5 h-1.5 rounded-full grad-bg shrink-0" />{p}</li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={() => setFlipped(false)}
+            tabIndex={flipped ? 0 : -1}
+            className="mt-auto self-start inline-flex items-center gap-2 text-[13.5px] text-muted hover:text-ink"
+            aria-label={`Back to the ${r.org} summary`}
+          >
+            <Icon name="flip" className="w-4 h-4" /> Back
+          </button>
+        </div>
+      </div>
+    </li>
   )
 }
 
 export default function Experience() {
-  const [now, research, dxc] = EXPERIENCE
   return (
-    <section id="experience" aria-labelledby="exp-title" className="max-w-page mx-auto px-4 md:px-8 pt-16 md:pt-24">
-      <SectionHead id="exp-title" title="Experience" intro="Four-plus years of data engineering and analytics, from enterprise clients to a business I support today." />
-
-      <ol className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
-        {[now, research].map((job, i) => (
-          <Tile as="li" key={job.org} delay={i * 0.05} className="bg-white p-6 md:p-8">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <Eyebrow className={i === 0 ? 'text-de' : 'text-fog'}>
-                {i === 0 && <span className="live-dot inline-block w-2 h-2 rounded-full bg-emerald-500 mr-2 align-middle" aria-hidden="true" />}
-                {job.dates.toLowerCase()}
-              </Eyebrow>
-              <span className="text-[13px] text-fog">{job.location}</span>
-            </div>
-            <h3 className="mt-4 font-disp font-bold text-[24px] md:text-[26px] leading-tight tracking-[-0.025em] text-ink">{job.role}</h3>
-            <p className="text-[15px] text-fog mt-1 mb-5">{job.org}</p>
-            {job.groups.map((g, gi) => <Bullets key={gi} items={g.bullets} />)}
-            <CaseLinks links={job.links} />
-          </Tile>
-        ))}
-
-        <Tile as="li" delay={0.1} className="lg:col-span-2 bg-white p-6 md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <Eyebrow>{dxc.dates.toLowerCase()}</Eyebrow>
-            <span className="text-[13px] text-fog">{dxc.location}</span>
-          </div>
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <h3 className="font-disp font-bold text-[24px] md:text-[26px] leading-tight tracking-[-0.025em] text-ink">{dxc.role}</h3>
-              <p className="text-[15px] text-fog mt-1">{dxc.org}</p>
-            </div>
-            {dxc.note && <p className="text-[13.5px] font-medium text-ink bg-chip rounded-full px-3 py-1.5">{dxc.note}</p>}
-          </div>
-          <div className="mt-6 grid md:grid-cols-2 gap-3.5">
-            {dxc.groups.map((g) => (
-              <div key={g.label} className="bg-chip rounded-2xl p-5 md:p-6">
-                <p className="font-disp font-semibold text-[16px] text-ink mb-3">{g.label}</p>
-                <Bullets items={g.bullets} />
-              </div>
-            ))}
-          </div>
-          <CaseLinks links={dxc.links} />
-        </Tile>
-      </ol>
+    <section id="experience" className="relative z-10 py-20 md:py-24" aria-labelledby="experience-title">
+      <div className="max-w-page mx-auto px-5 md:px-8">
+        <SectionTitle id="experience-title" ghost="EXPERIENCE" title="Work experience" sub="Hover a card, or tap “What I did here”, to flip it." />
+        <ul className="grid md:grid-cols-3 gap-5 md:gap-6">
+          {ROLES.map((r) => <FlipCard key={r.org} r={r} />)}
+        </ul>
+      </div>
     </section>
   )
 }

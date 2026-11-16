@@ -1,13 +1,13 @@
-import '@fontsource-variable/sora/wght.css'
-import '@fontsource-variable/inter/wght.css'
-import '@fontsource-variable/jetbrains-mono/wght.css'
+import '@fontsource-variable/unbounded/wght.css'
+import '@fontsource-variable/geist/wght.css'
+import '@fontsource-variable/geist-mono/wght.css'
 import './globals.css'
 import Providers from '../components/Providers'
 
 const SITE_URL = 'https://vamshikrishna-portfolio-three.vercel.app'
-const TITLE = 'Vamshi Krishna Balupari | Data Engineer, Analyst, ML and Gen AI'
+const TITLE = 'Vamshi Krishna Balupari | Software Engineer: AI agents, full-stack apps, data platforms'
 const DESCRIPTION =
-  'Data pipelines, dashboards, and AI tools built end to end. 4+ years engineering data for AT&T and VFS Global, plus live products and explainable AI research.'
+  'Software engineer in Houston, TX. Live AI agents and full-stack products with code on GitHub, plus 4 years building data platforms for AT&T and VFS Global.'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -15,16 +15,19 @@ export const metadata = {
   description: DESCRIPTION,
   alternates: { canonical: '/' },
   openGraph: { type: 'website', url: SITE_URL, title: TITLE, description: DESCRIPTION, siteName: 'Vamshi Krishna Balupari' },
-  twitter: { card: 'summary', title: TITLE, description: DESCRIPTION },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 }
 
-export const viewport = { themeColor: '#ECEEF2', width: 'device-width', initialScale: 1 }
+export const viewport = { themeColor: '#0B0A1C', width: 'device-width', initialScale: 1 }
+
+// Applies the saved palette before first paint so the page never flashes the default colors.
+const PALETTE_INIT = `try{var p=localStorage.getItem('palette');if(p==='aurora'||p==='ember'||p==='lumina'){document.documentElement.dataset.palette=p}}catch(e){}`
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-palette="lumina" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: PALETTE_INIT }} />
       </head>
       <body>
         <Providers>{children}</Providers>
