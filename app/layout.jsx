@@ -5,9 +5,9 @@ import './globals.css'
 import Providers from '../components/Providers'
 
 const SITE_URL = 'https://vamshikrishna-portfolio-three.vercel.app'
-const TITLE = 'Vamshi Krishna Balupari | Software Engineer: AI agents, full-stack apps, data platforms'
+const TITLE = 'Vamshi Krishna Balupari | AI Engineer: AI agents, full-stack apps, data platforms'
 const DESCRIPTION =
-  'Software engineer. Live AI agents and full-stack products with code on GitHub, plus 4 years building data platforms for AT&T and VFS Global.'
+  'AI engineer. Live AI agents and full-stack products with code on GitHub, plus 4 years building data platforms for AT&T and VFS Global.'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),

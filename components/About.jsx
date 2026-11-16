@@ -33,7 +33,7 @@ function AboutTab() {
         <h3 className="font-disp font-semibold text-[22px] md:text-[26px] tracking-[-0.01em]">
           Vamshi Krishna Balupari
         </h3>
-        <p className="mt-2 text-accent text-[15px]">Software engineer for AI agents, full-stack apps, and data platforms</p>
+        <p className="mt-2 text-accent text-[15px]">AI Engineer building agents, full-stack apps, and data platforms</p>
         <div className="mt-6 space-y-4 text-[16.5px] leading-[1.75] text-ink/85 max-w-[68ch]">
           {ABOUT.bio.map((p, i) => <p key={i}><Rich text={p} /></p>)}
         </div>

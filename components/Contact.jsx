@@ -19,7 +19,7 @@ export function Contact() {
           id="contact-title"
           ghost="CONTACT"
           title="Contact me"
-          sub="I’m looking for software engineering roles. Email is the fastest way to reach me."
+          sub="I’m looking for AI engineering roles. Email is the fastest way to reach me."
         />
         <ul className="grid md:grid-cols-2 gap-4 max-w-[720px] mx-auto">
           {ITEMS.map((it) => {

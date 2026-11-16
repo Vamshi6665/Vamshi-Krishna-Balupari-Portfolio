@@ -242,9 +242,9 @@ export const PROJECTS = [
     year: '2026',
     role: 'Data model, SQL, API, and front end',
     stack: ['React 19', 'Node.js', 'Express', 'Amazon Athena', 'Amazon S3', 'DuckDB', 'Docker'],
-    cover: { src: '/images/recruitment-hub/overview.webp', frame: 'browser', label: 'Recruitment Hub' },
+    cover: { src: '/images/recruitment-hub/overview.webp', frame: 'browser', label: 'recruitment.vercel.app' },
     github: `${GH}/RecruitmentDashboard`,
-    live: null,
+    live: { href: 'https://recruitment-qsnf6dtdm-vamshikrish.vercel.app/#overview', host: 'Vercel' },
     caseId: 'recruitment-hub',
   },
   {
@@ -376,18 +376,18 @@ export const CLIENTS = [
 export const ALSO_SUPPORTED = 'At DXC I also supported SAP as an enterprise client.'
 
 export const ABOUT = {
-  headline: 'Software engineer',
+  headline: 'AI Engineer',
   typed: ['AI agents.', 'full-stack products.', 'data platforms.', 'apps people actually use.'],
   intro:
     'I design, build, and ship software end to end: agents that read codebases, apps a business runs on every day, and the data pipelines underneath them.',
   bio: [
-    'I’m Vamshi, a software engineer. I spent four years at **DXC Technology** building data platforms for **AT&T** and **VFS Global**, then earned an **M.S. in Applied Computer Science** with a 4.0 GPA at Northwest Missouri State, where I did explainable-AI research and co-authored a paper on LLM agents.',
+    'I’m Vamshi, an AI engineer. I spent four years at **DXC Technology** building data platforms for **AT&T** and **VFS Global**, then earned an **M.S. in Applied Computer Science** with a 4.0 GPA at Northwest Missouri State, where I did explainable-AI research and co-authored a paper on LLM agents.',
     'Now I build AI agents and full-stack products from the first spec to the deploy: a codebase-reading agent, a planner that writes you a newspaper, and the inventory system and website a Walnut Creek gelato shop runs on. I work with Claude and other LLMs as engineering tools, with tests deciding what ships.',
   ],
   tools: ['VS Code', 'Cursor', 'Claude Code', 'GitHub Copilot', 'Git', 'GitHub Actions', 'Docker', 'Postman', 'Jupyter', 'Android Studio', 'dbt', 'Power BI Desktop', 'Supabase', 'Vercel', 'Render', 'AWS', 'Azure'],
   stats: [
     { value: '4+', label: 'years in industry' },
-    { value: '5', label: 'apps live right now' },
+    { value: '6', label: 'apps live right now' },
     { value: '4.0', label: 'M.S. GPA' },
     { value: '4', label: 'cloud certifications' },
   ],
