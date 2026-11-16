@@ -13,14 +13,15 @@ export const SECTIONS = [
 ]
 
 const PALETTES = [
+  { id: 'sunrise', label: 'Sunrise: orange and white', a: '#FF7A00', b: '#FFF1E0' },
   { id: 'lumina', label: 'Lumina: violet and rose', a: '#7C5CFF', b: '#FF5FA2' },
   { id: 'aurora', label: 'Aurora: teal and cyan', a: '#14B8A6', b: '#A3E635' },
   { id: 'ember', label: 'Ember: orange and red', a: '#FF9800', b: '#F43F5E' },
 ]
 
 function PaletteSwitch() {
-  const [current, setCurrent] = useState('lumina')
-  useEffect(() => setCurrent(document.documentElement.dataset.palette || 'lumina'), [])
+  const [current, setCurrent] = useState('sunrise')
+  useEffect(() => setCurrent(document.documentElement.dataset.palette || 'sunrise'), [])
   const choose = (id) => {
     document.documentElement.dataset.palette = id
     setCurrent(id)
@@ -37,7 +38,7 @@ function PaletteSwitch() {
           aria-label={p.label}
           title={p.label}
           onClick={() => choose(p.id)}
-          className={`w-5 h-5 rounded-full transition ${current === p.id ? 'ring-2 ring-white/80 ring-offset-2 ring-offset-transparent scale-100' : 'opacity-70 hover:opacity-100 scale-90'}`}
+          className={`w-5 h-5 rounded-full transition ${current === p.id ? 'ring-2 ring-tint/80 ring-offset-2 ring-offset-transparent scale-100' : 'opacity-70 hover:opacity-100 scale-90'}`}
           style={{ background: `linear-gradient(135deg, ${p.a}, ${p.b})` }}
         />
       ))}
@@ -70,7 +71,7 @@ export default function Nav() {
   }, [open])
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${scrolled || open ? 'bg-night/80 backdrop-blur-xl border-b border-white/[0.07]' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${scrolled || open ? 'bg-night/80 backdrop-blur-xl border-b border-tint/[0.07]' : 'bg-transparent'}`}>
       <a href="#projects" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 glass rounded-full px-4 py-2 text-sm">Skip to projects</a>
       <nav className="max-w-page mx-auto h-16 px-5 md:px-8 flex items-center justify-between gap-6" aria-label="Main">
         <a href="#home" className="flex items-center gap-3 group" aria-label="Vamshi Krishna Balupari, back to top">
@@ -109,7 +110,7 @@ export default function Nav() {
         <ul id="mobile-menu" className="lg:hidden px-5 pb-5 grid gap-1">
           {SECTIONS.map((s) => (
             <li key={s.id}>
-              <a href={`#${s.id}`} onClick={() => setOpen(false)} className={`block px-4 py-3 rounded-xl text-[16px] ${active === s.id ? 'bg-white/[0.07] text-ink' : 'text-muted'}`}>
+              <a href={`#${s.id}`} onClick={() => setOpen(false)} className={`block px-4 py-3 rounded-xl text-[16px] ${active === s.id ? 'bg-tint/[0.07] text-ink' : 'text-muted'}`}>
                 {s.label}
               </a>
             </li>

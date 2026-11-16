@@ -94,7 +94,7 @@ export function Particles({ className = '', density = 13000, max = 90 }) {
         }
         const md = Math.hypot(mouse.x - a.x, mouse.y - a.y)
         if (md < 200) {
-          ctx.strokeStyle = `rgba(255,255,255,${(1 - md / 200) * 0.25})`
+          ctx.strokeStyle = `rgba(${colors[0].join(',')},${(1 - md / 200) * 0.3})`
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke()
         }
       }

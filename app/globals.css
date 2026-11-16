@@ -4,8 +4,25 @@
 
 /* Three gradient palettes. Lumina is the default; the switcher in the nav sets data-palette on <html>.
    Values are RGB triplets so Tailwind can apply opacity (bg-night/80 etc.). */
+:root { --tint: 255 255 255; --shade: 0 0 0; }
+/* Sunrise: white with orange. The default. */
 :root,
+:root[data-palette='sunrise'] {
+  --bg: 255 253 250;
+  --bg-2: 255 246 236;
+  --ink: 38 22 8;
+  --muted: 122 98 78;
+  --accent: 196 82 0;
+  --g1: 255 122 0;
+  --g2: 240 78 30;
+  --g3: 255 176 60;
+  --on-grad: 255 255 255;
+  --tint: 70 35 0;
+  --shade: 255 255 255;
+  color-scheme: light;
+}
 :root[data-palette='lumina'] {
+  --tint: 255 255 255; --shade: 0 0 0; color-scheme: dark;
   --bg: 11 10 28;        /* #0B0A1C */
   --bg-2: 20 17 44;      /* #14112C */
   --ink: 238 235 250;
@@ -17,6 +34,7 @@
   --on-grad: 255 255 255;
 }
 :root[data-palette='aurora'] {
+  --tint: 255 255 255; --shade: 0 0 0; color-scheme: dark;
   --bg: 5 20 22;
   --bg-2: 10 33 36;
   --ink: 230 248 245;
@@ -28,6 +46,7 @@
   --on-grad: 3 26 24;
 }
 :root[data-palette='ember'] {
+  --tint: 255 255 255; --shade: 0 0 0; color-scheme: dark;
   --bg: 21 18 24;
   --bg-2: 36 30 38;
   --ink: 250 240 230;
@@ -39,7 +58,7 @@
   --on-grad: 26 15 0;
 }
 
-html { overflow-x: clip; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: rgb(var(--bg)); color-scheme: dark; }
+html { overflow-x: clip; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: rgb(var(--bg)); }
 body { @apply bg-night text-ink font-sans antialiased; font-size: 16px; line-height: 1.6; overflow-x: clip; }
 h1, h2, h3, h4 { text-wrap: balance; }
 p, li, dd { text-wrap: pretty; }
@@ -57,15 +76,19 @@ section[id] { scroll-margin-top: 72px; }
 .grad-border { position: relative; }
 .grad-border::before {
   content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
-  background: linear-gradient(140deg, rgb(var(--g1) / .7), rgb(var(--g2) / .25) 40%, rgb(255 255 255 / .06) 60%, rgb(var(--g3) / .5));
+  background: linear-gradient(140deg, rgb(var(--g1) / .7), rgb(var(--g2) / .25) 40%, rgb(var(--tint) / .06) 60%, rgb(var(--g3) / .5));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
 }
-.glass { background: rgb(var(--bg-2) / 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgb(255 255 255 / 0.08); }
+.glass { background: rgb(var(--bg-2) / 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgb(var(--tint) / 0.1); }
 
 /* Ambient mesh: three slow blobs, a cursor glow, and film grain */
 .mesh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .mesh .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .45; will-change: transform; }
+:root[data-palette='sunrise'] .mesh .blob { opacity: .2; }
+:root[data-palette='sunrise'] .mesh .b3 { opacity: .14; }
+:root[data-palette='sunrise'] .grain { opacity: .04; mix-blend-mode: multiply; }
+:root[data-palette='sunrise'] .glass { background: rgb(255 255 255 / .72); box-shadow: 0 10px 30px -18px rgb(var(--g1) / .35); }
 .mesh .b1 { width: 52vw; height: 52vw; left: -14vw; top: -18vw; background: rgb(var(--g1)); animation: drift1 26s ease-in-out infinite alternate; }
 .mesh .b2 { width: 44vw; height: 44vw; right: -12vw; top: 18vh; background: rgb(var(--g2)); opacity: .32; animation: drift2 32s ease-in-out infinite alternate; }
 .mesh .b3 { width: 40vw; height: 40vw; left: 22vw; bottom: -22vw; background: rgb(var(--g3)); opacity: .22; animation: drift3 38s ease-in-out infinite alternate; }

@@ -17,9 +17,7 @@ function AboutTab() {
     <div className="grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-14 items-start">
       <div className="text-center lg:text-left">
         <div className="relative mx-auto lg:mx-0 w-44 h-44 rounded-full p-[3px] grad-bg">
-          <div className="w-full h-full rounded-full bg-deep grid place-items-center">
-            <span className="font-disp font-bold text-[52px] grad-text">VK</span>
-          </div>
+          <img src="/images/profile.webp" width="480" height="480" alt="Vamshi Krishna Balupari" className="w-full h-full rounded-full object-cover" />
         </div>
         <dl className="mt-8 grid grid-cols-2 gap-3">
           {ABOUT.stats.map((s) => (
@@ -43,7 +41,7 @@ function AboutTab() {
           <h4 className="text-[14px] font-semibold text-ink">Editors, tools, and platforms I use</h4>
           <ul className="mt-3 flex flex-wrap gap-2">
             {ABOUT.tools.map((t) => (
-              <li key={t} className="px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-[13.5px] text-ink/85">{t}</li>
+              <li key={t} className="px-3 py-1.5 rounded-full bg-tint/[0.05] border border-tint/[0.08] text-[13.5px] text-ink/85">{t}</li>
             ))}
           </ul>
         </div>
@@ -60,7 +58,7 @@ function SkillsTab() {
           <h3 className="font-disp font-semibold text-[16px]">{g.name}</h3>
           <ul className="mt-4 flex flex-wrap gap-1.5">
             {g.items.map((s) => (
-              <li key={s} className="px-2.5 py-1 rounded-lg bg-white/[0.06] text-[13px] text-ink/90">{s}</li>
+              <li key={s} className="px-2.5 py-1 rounded-lg bg-tint/[0.06] text-[13px] text-ink/90">{s}</li>
             ))}
           </ul>
         </li>

@@ -46,7 +46,7 @@ function Gallery({ shots, label, note }) {
   const s = shots[i]
   return (
     <div>
-      <div className="rounded-2xl bg-black/25 border border-white/[0.06] p-3 md:p-5 grid place-items-center min-h-[240px]">
+      <div className="rounded-2xl bg-shade/25 border border-tint/[0.06] p-3 md:p-5 grid place-items-center min-h-[240px]">
         {s.mobile ? (
           <PhoneFrame className="w-[min(260px,62vw)]">
             <img src={s.src} width={s.w} height={s.h} alt={s.caption} className="block w-full h-auto" />
@@ -67,7 +67,7 @@ function Gallery({ shots, label, note }) {
                 onClick={() => setI(k)}
                 aria-label={`Show screenshot ${k + 1}: ${t.caption}`}
                 aria-pressed={k === i}
-                className={`block h-16 ${t.mobile ? 'w-9' : 'w-24'} rounded-lg overflow-hidden border transition ${k === i ? 'border-accent' : 'border-white/10 opacity-60 hover:opacity-100'}`}
+                className={`block h-16 ${t.mobile ? 'w-9' : 'w-24'} rounded-lg overflow-hidden border transition ${k === i ? 'border-accent' : 'border-tint/10 opacity-60 hover:opacity-100'}`}
               >
                 <img src={t.src} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
               </button>
@@ -123,16 +123,16 @@ export default function DetailModal({ item, onClose }) {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 16 }}
         transition={{ duration: 0.35, ease: [0.2, 0.7, 0.2, 1] }}
-        className="relative mx-auto my-6 md:my-12 w-[min(1060px,calc(100%-24px))] rounded-[28px] bg-deep/95 border border-white/10 shadow-[0_60px_120px_-40px_rgb(0_0_0/.9)]"
+        className="relative mx-auto my-6 md:my-12 w-[min(1060px,calc(100%-24px))] rounded-[28px] bg-deep/95 border border-tint/10 shadow-[0_60px_120px_-40px_rgb(0_0_0/.9)]"
       >
         <div className="sticky top-0 z-10 flex justify-end p-3 md:p-4">
-          <button ref={closeRef} type="button" onClick={onClose} aria-label="Close details" className="grid place-items-center w-10 h-10 rounded-full glass hover:bg-white/10">
+          <button ref={closeRef} type="button" onClick={onClose} aria-label="Close details" className="grid place-items-center w-10 h-10 rounded-full glass hover:bg-tint/10">
             <Icon name="close" className="w-5 h-5" />
           </button>
         </div>
         <div className="px-5 md:px-12 pb-12 -mt-10">
           <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
-            {item.year && <span className="px-2.5 py-1 rounded-full bg-white/[0.06]">{item.year}</span>}
+            {item.year && <span className="px-2.5 py-1 rounded-full bg-tint/[0.06]">{item.year}</span>}
             {item.status && <span className="px-2.5 py-1 rounded-full bg-g3/15 text-ink">{item.status}</span>}
             {d.role && <span>{d.role}</span>}
           </div>
@@ -174,7 +174,7 @@ export default function DetailModal({ item, onClose }) {
             {d.stackList.length > 0 && (
               <Block title="Built with">
                 <ul className="flex flex-wrap gap-1.5">
-                  {d.stackList.map((s) => <li key={s} className="px-2.5 py-1 rounded-lg bg-white/[0.06] text-[13px]">{s}</li>)}
+                  {d.stackList.map((s) => <li key={s} className="px-2.5 py-1 rounded-lg bg-tint/[0.06] text-[13px]">{s}</li>)}
                 </ul>
               </Block>
             )}
@@ -210,7 +210,7 @@ export default function DetailModal({ item, onClose }) {
 
           {d.studies && (
             <Block title="The five studies">
-              <ul className="divide-y divide-white/[0.07] rounded-2xl glass">
+              <ul className="divide-y divide-tint/[0.07] rounded-2xl glass">
                 {d.studies.map((s) => (
                   <li key={s.name} className="p-4 md:px-5 grid md:grid-cols-[1.1fr_1.2fr_1fr] gap-1 md:gap-5">
                     <p className="font-semibold text-[15px]">{s.name}</p>
@@ -234,7 +234,7 @@ export default function DetailModal({ item, onClose }) {
             <Block title="Key decisions">
               <ul className="grid md:grid-cols-3 gap-3">
                 {d.decisions.map((x) => (
-                  <li key={x.title} className="rounded-2xl p-5 bg-white/[0.035] border border-white/[0.07]">
+                  <li key={x.title} className="rounded-2xl p-5 bg-tint/[0.035] border border-tint/[0.07]">
                     <p className="font-semibold text-[15.5px]">{x.title}</p>
                     <p className="mt-2 text-[14px] text-ink/80 leading-relaxed">{x.why}</p>
                     <p className="mt-3 text-[13px] text-muted leading-relaxed"><span className="text-ink/70">Trade-off:</span> {x.tradeoff}</p>

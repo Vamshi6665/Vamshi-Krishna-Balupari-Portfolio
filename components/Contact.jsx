@@ -5,14 +5,13 @@ import { Button, Icon, SectionTitle } from './ui'
 import { PROFILE } from '../data/content'
 
 const ITEMS = [
-  { icon: 'pin', label: 'Location', value: 'Houston, TX' },
   { icon: 'phone', label: 'Phone', value: '+1 (660) 493-5399', href: 'tel:+16604935399' },
   { icon: 'mail', label: 'Email', value: 'vamshikrishnabalupari@gmail.com', href: 'mailto:vamshikrishnabalupari@gmail.com' },
 ]
 
 export function Contact() {
   return (
-    <section id="contact" className="relative z-10 py-20 md:py-28 overflow-hidden border-t border-white/[0.06]" aria-labelledby="contact-title">
+    <section id="contact" className="relative z-10 py-20 md:py-28 overflow-hidden border-t border-tint/[0.06]" aria-labelledby="contact-title">
       <div className="absolute inset-0 bg-[rgb(var(--bg)/.55)]" aria-hidden="true" />
       <Particles density={16000} max={70} />
       <div className="relative max-w-page mx-auto px-5 md:px-8">
@@ -22,7 +21,7 @@ export function Contact() {
           title="Contact me"
           sub="I’m looking for software engineering roles. Email is the fastest way to reach me."
         />
-        <ul className="grid md:grid-cols-3 gap-4 max-w-[1000px] mx-auto">
+        <ul className="grid md:grid-cols-2 gap-4 max-w-[720px] mx-auto">
           {ITEMS.map((it) => {
             const body = (
               <>
@@ -35,7 +34,7 @@ export function Contact() {
             return (
               <li key={it.label}>
                 {it.href ? (
-                  <a href={it.href} className="block h-full text-center glass rounded-3xl p-7 hover:bg-white/[0.07] transition">{body}</a>
+                  <a href={it.href} className="block h-full text-center glass rounded-3xl p-7 hover:bg-tint/[0.07] transition">{body}</a>
                 ) : (
                   <div className="h-full text-center glass rounded-3xl p-7">{body}</div>
                 )}
@@ -55,7 +54,7 @@ export function Contact() {
 
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-white/[0.06] py-8">
+    <footer className="relative z-10 border-t border-tint/[0.06] py-8">
       <div className="max-w-page mx-auto px-5 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13.5px] text-muted">
         <p>Designed and built by Vamshi Krishna Balupari. Next.js, deployed on Vercel.</p>
         <a href="#home" className="inline-flex items-center gap-2 hover:text-ink"><Icon name="up" className="w-4 h-4" /> Back to top</a>

@@ -13,6 +13,8 @@ module.exports = {
         g1: 'rgb(var(--g1) / <alpha-value>)',
         g2: 'rgb(var(--g2) / <alpha-value>)',
         g3: 'rgb(var(--g3) / <alpha-value>)',
+        tint: 'rgb(var(--tint) / <alpha-value>)',
+        shade: 'rgb(var(--shade) / <alpha-value>)',
         live: '#4ADE80',
       },
       fontFamily: {

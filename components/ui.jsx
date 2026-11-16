@@ -6,7 +6,7 @@ export function Rich({ text, strongClass = 'text-ink font-semibold' }) {
     if (i % 2 === 1) return <strong key={i} className={strongClass}>{p}</strong>
     return p.split('`').map((q, j) =>
       j % 2 === 1 ? (
-        <code key={`${i}-${j}`} className="font-mono text-[0.9em] px-1.5 py-0.5 rounded bg-white/[0.07] text-ink">{q}</code>
+        <code key={`${i}-${j}`} className="font-mono text-[0.9em] px-1.5 py-0.5 rounded bg-tint/[0.07] text-ink">{q}</code>
       ) : (
         <span key={`${i}-${j}`}>{q}</span>
       ),
@@ -57,7 +57,7 @@ export function Button({ href, onClick, children, variant = 'glass', icon, iconR
   const sizes = { sm: 'h-9 px-3.5 text-[13.5px] gap-1.5', md: 'h-11 px-5 text-[15px] gap-2' }
   const looks = {
     grad: 'grad-bg font-semibold shadow-[0_10px_30px_-12px_rgb(var(--g1)/.8)] hover:brightness-110',
-    glass: 'glass text-ink hover:bg-white/[0.08] hover:border-white/20',
+    glass: 'glass text-ink hover:bg-tint/[0.08] hover:border-tint/20',
     ghost: 'text-muted hover:text-ink',
   }
   const cls = `inline-flex items-center justify-center rounded-full transition ${sizes[size]} ${looks[variant]} ${disabled ? 'opacity-45 pointer-events-none' : ''} ${className}`
@@ -100,14 +100,14 @@ export function SectionTitle({ ghost, title, sub, id }) {
 // Browser chrome around a screenshot.
 export function BrowserFrame({ label, children, className = '' }) {
   return (
-    <div className={`rounded-xl overflow-hidden border border-white/10 bg-[#121018] shadow-[0_30px_60px_-30px_rgb(0_0_0/.8)] ${className}`}>
-      <div className="flex items-center gap-2 h-7 px-3 bg-white/[0.04] border-b border-white/[0.06]">
+    <div className={`rounded-xl overflow-hidden border border-tint/10 bg-deep shadow-[0_30px_60px_-30px_rgb(0_0_0/.8)] ${className}`}>
+      <div className="flex items-center gap-2 h-7 px-3 bg-tint/[0.04] border-b border-tint/[0.06]">
         <span className="flex gap-1.5" aria-hidden="true">
           <i className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
           <i className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
           <i className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
         </span>
-        {label && <span className="mx-auto pr-8 truncate text-[11px] text-white/45 font-mono">{label}</span>}
+        {label && <span className="mx-auto pr-8 truncate text-[11px] text-tint/45 font-mono">{label}</span>}
       </div>
       {children}
     </div>
@@ -116,7 +116,7 @@ export function BrowserFrame({ label, children, className = '' }) {
 
 export function PhoneFrame({ children, className = '' }) {
   return (
-    <div className={`rounded-[26px] p-[6px] bg-[#0d0c12] border border-white/10 shadow-[0_30px_60px_-30px_rgb(0_0_0/.8)] ${className}`}>
+    <div className={`rounded-[26px] p-[6px] bg-[#0d0c12] border border-tint/10 shadow-[0_30px_60px_-30px_rgb(0_0_0/.8)] ${className}`}>
       <div className="rounded-[20px] overflow-hidden">{children}</div>
     </div>
   )

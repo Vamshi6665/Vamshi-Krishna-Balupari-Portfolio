@@ -162,7 +162,7 @@ export const PROJECTS = [
     year: '2025–26',
     role: 'Team of 4, Graduate Directed Project, Northwest Missouri State',
     stack: ['Kotlin', 'Jetpack Compose', 'TensorFlow Lite', 'MobileNetV2', 'FastAPI', 'Express 5', 'Prisma', 'MySQL', 'Socket.IO'],
-    cover: { src: '/images/edgecare/cover.webp', frame: 'inset', label: 'EdgeCare Triage' },
+    cover: { src: '/images/edgecare/portal-login.webp', frame: 'browser', label: 'edgecare.onrender.com' },
     github: 'https://github.com/ViswasS/GDP_Group_02',
     live: { href: 'https://edgecare.onrender.com', host: 'Render', note: 'Free hosting: first load can take about a minute' },
     detail: {
@@ -189,7 +189,7 @@ export const PROJECTS = [
         { title: 'A person has the last word', why: 'The AI suggests; a doctor confirms or overrides before follow-up care.', tradeoff: 'Slower than fully automatic triage, by design.' },
       ],
       shots: [
-        { src: '/images/edgecare/portal-login.webp', w: 1440, h: 900, caption: 'Doctor and patient portal sign-in.' },
+        { src: '/images/edgecare/portal-login.webp', w: 1600, h: 790, caption: 'Doctor and patient portal sign-in.' },
         { src: '/images/edgecare/workflow.webp', w: 900, h: 1350, mobile: true, caption: 'The four-stage triage flow from the project deck.' },
       ],
       outcome: 'Delivered as our graduate directed project with an Android app, a doctor and admin web portal, and a deployed ML service.',
@@ -381,7 +381,7 @@ export const ABOUT = {
   intro:
     'I design, build, and ship software end to end: agents that read codebases, apps a business runs on every day, and the data pipelines underneath them.',
   bio: [
-    'I’m Vamshi, a software engineer in Houston, TX. I spent four years at **DXC Technology** building data platforms for **AT&T** and **VFS Global**, then earned an **M.S. in Applied Computer Science** with a 4.0 GPA at Northwest Missouri State, where I did explainable-AI research and co-authored a paper on LLM agents.',
+    'I’m Vamshi, a software engineer. I spent four years at **DXC Technology** building data platforms for **AT&T** and **VFS Global**, then earned an **M.S. in Applied Computer Science** with a 4.0 GPA at Northwest Missouri State, where I did explainable-AI research and co-authored a paper on LLM agents.',
     'Now I build AI agents and full-stack products from the first spec to the deploy: a codebase-reading agent, a planner that writes you a newspaper, and the inventory system and website a Walnut Creek gelato shop runs on. I work with Claude and other LLMs as engineering tools, with tests deciding what ships.',
   ],
   tools: ['VS Code', 'Cursor', 'Claude Code', 'GitHub Copilot', 'Git', 'GitHub Actions', 'Docker', 'Postman', 'Jupyter', 'Android Studio', 'dbt', 'Power BI Desktop', 'Supabase', 'Vercel', 'Render', 'AWS', 'Azure'],

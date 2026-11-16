@@ -12,7 +12,7 @@ function FlowDiagram({ steps }) {
     <ol className="flex flex-wrap items-center gap-y-2.5" aria-label="Pipeline">
       {steps.map((s, i) => (
         <li key={s} className="flex items-center">
-          <span className="inline-flex items-center gap-1.5 h-8 pl-1 pr-2.5 rounded-full bg-deep border border-white/12 text-[12.5px] whitespace-nowrap shadow-[0_8px_20px_-10px_rgb(0_0_0/.8)]">
+          <span className="inline-flex items-center gap-1.5 h-8 pl-1 pr-2.5 rounded-full bg-deep border border-tint/12 text-[12.5px] whitespace-nowrap shadow-[0_8px_20px_-10px_rgb(0_0_0/.8)]">
             <span className="grid place-items-center w-6 h-6 rounded-full grad-bg text-[11px] font-semibold">{i + 1}</span>
             {s}
           </span>
@@ -61,7 +61,7 @@ export default function Clients() {
                     <FlowDiagram steps={c.flow} />
                     <dl className="mt-7 grid grid-cols-3 gap-3">
                       {c.metrics.map((m) => (
-                        <div key={m.label} className="rounded-2xl bg-black/20 border border-white/[0.06] p-4">
+                        <div key={m.label} className="rounded-2xl bg-shade/20 border border-tint/[0.06] p-4">
                           <dt className="sr-only">{m.label}</dt>
                           <dd className="font-disp font-semibold text-[22px] md:text-[28px] leading-none grad-text inline-block">{m.value}</dd>
                           <dd className="mt-2 text-[12.5px] text-muted">{m.label}</dd>

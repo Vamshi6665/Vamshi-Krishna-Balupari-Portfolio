@@ -34,7 +34,7 @@ export default function Hero() {
       <Particles className="[mask-image:radial-gradient(ellipse_62%_55%_at_50%_48%,transparent_35%,black_80%)]" />
       <div className="relative z-10 w-full max-w-page mx-auto px-5 md:px-8 pt-28 pb-16 text-center">
         <p className="rise text-muted text-[15px] md:text-[16px]" style={{ '--d': '.05s' }}>
-          {ABOUT.headline} in Houston, TX
+          {ABOUT.headline}
         </p>
         <h1 id="hero-name" className="rise mt-5 font-disp font-bold leading-[0.95] tracking-[-0.035em] text-[clamp(42px,8.4vw,112px)]" style={{ '--d': '.15s' }}>
           <span className="name-sheen">Vamshi Krishna<br />Balupari</span>
@@ -61,7 +61,7 @@ export default function Hero() {
                   href={p.live.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 h-9 pl-3 pr-3.5 rounded-full glass text-[13.5px] hover:border-white/25 hover:bg-white/[0.08] transition"
+                  className="inline-flex items-center gap-2 h-9 pl-3 pr-3.5 rounded-full glass text-[13.5px] hover:border-tint/25 hover:bg-tint/[0.08] transition"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-live" aria-hidden="true" />
                   {p.title}
@@ -72,8 +72,8 @@ export default function Hero() {
           </ul>
         </div>
       </div>
-      <a href="#about" aria-label="Scroll to About" className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden md:grid place-items-center w-7 h-11 rounded-full border border-white/25">
-        <span className="w-1 h-2 rounded-full bg-white/70 animate-bounce" />
+      <a href="#about" aria-label="Scroll to About" className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden md:grid place-items-center w-7 h-11 rounded-full border border-tint/25">
+        <span className="w-1 h-2 rounded-full bg-tint/70 animate-bounce" />
       </a>
     </section>
   )

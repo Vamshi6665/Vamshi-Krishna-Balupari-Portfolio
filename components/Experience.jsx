@@ -69,7 +69,7 @@ function FlipCard({ r }) {
             <Icon name="flip" className="w-4 h-4" /> What I did here
           </button>
         </div>
-        <div className="flip-face flip-back rounded-[26px] p-7 flex flex-col bg-[linear-gradient(150deg,rgb(var(--g1)/.35),rgb(var(--bg-2))_45%,rgb(var(--g2)/.22))] border border-white/12">
+        <div className="flip-face flip-back rounded-[26px] p-7 flex flex-col bg-[linear-gradient(150deg,rgb(var(--g1)/.35),rgb(var(--bg-2))_45%,rgb(var(--g2)/.22))] border border-tint/12">
           <p className="text-[13px] text-muted">{r.role}, {r.dates}</p>
           <h3 className="mt-1 font-disp font-semibold text-[17px]">{r.org}</h3>
           <ul className="mt-4 space-y-3 text-[14.5px] leading-relaxed text-ink/90">

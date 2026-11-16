@@ -14,7 +14,7 @@ function Cover({ p }) {
   if (c.frame === 'inset') {
     return (
       <div className="absolute inset-0 bg-[radial-gradient(90%_90%_at_10%_0%,rgb(var(--g3)/.28),transparent_60%),radial-gradient(80%_80%_at_100%_100%,rgb(var(--g1)/.3),transparent_60%)] bg-deep">
-        <img src={c.src} alt="" loading="lazy" className="cover-img absolute left-[9%] right-[9%] top-[9%] w-[82%] aspect-[3/2] object-cover rounded-xl border border-white/10 shadow-[0_30px_60px_-25px_rgb(0_0_0/.85)]" />
+        <img src={c.src} alt="" loading="lazy" className="cover-img absolute left-[9%] right-[9%] top-[9%] w-[82%] aspect-[3/2] object-cover rounded-xl border border-tint/10 shadow-[0_30px_60px_-25px_rgb(0_0_0/.85)]" />
       </div>
     )
   }
@@ -72,7 +72,7 @@ function ProjectCard({ p, onOpen }) {
         </div>
         <p className="mt-2 text-[14.5px] leading-relaxed text-ink/75">{p.line}</p>
         <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Built with">
-          {p.stack.slice(0, 4).map((s) => <li key={s} className="px-2 py-0.5 rounded-md bg-white/[0.06] text-[12px] text-ink/80">{s}</li>)}
+          {p.stack.slice(0, 4).map((s) => <li key={s} className="px-2 py-0.5 rounded-md bg-tint/[0.06] text-[12px] text-ink/80">{s}</li>)}
           {extra > 0 && <li className="px-2 py-0.5 rounded-md text-[12px] text-muted">+{extra} more</li>}
         </ul>
         <div className="mt-auto pt-5 flex flex-wrap items-center gap-2">
