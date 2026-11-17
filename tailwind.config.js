@@ -1,31 +1,28 @@
 /** @type {import('tailwindcss').Config} */
+// Colors come from CSS variables so the palette switcher (Lumina, Aurora, Ember) can re-tint the whole site.
 module.exports = {
   content: ['./app/**/*.{js,jsx}', './components/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
-        ground: '#ECEEF2', // page background between tiles
-        tile: '#FFFFFF',
-        chip: '#F3F4F7', // inset panels and chips inside tiles
-        night: '#11151C', // dark tiles and headings
-        ink: '#11151C',
-        slate: '#474F5C', // body text
-        fog: '#5A6270', // muted text (AA on white, ground, and chip)
-        line: '#D5D9E0',
-        rule: '#E3E6EB',
-        // Role lens colors (AA with white text)
-        da: '#2563EB',
-        de: '#047857',
-        ml: '#7C3AED',
-        gi: '#BE185D',
+        night: 'rgb(var(--bg) / <alpha-value>)',
+        deep: 'rgb(var(--bg-2) / <alpha-value>)',
+        ink: 'rgb(var(--ink) / <alpha-value>)',
+        muted: 'rgb(var(--muted) / <alpha-value>)',
+        accent: 'rgb(var(--accent) / <alpha-value>)',
+        g1: 'rgb(var(--g1) / <alpha-value>)',
+        g2: 'rgb(var(--g2) / <alpha-value>)',
+        g3: 'rgb(var(--g3) / <alpha-value>)',
+        tint: 'rgb(var(--tint) / <alpha-value>)',
+        shade: 'rgb(var(--shade) / <alpha-value>)',
+        live: '#4ADE80',
       },
       fontFamily: {
-        disp: ["'Sora Variable'", 'system-ui', 'sans-serif'],
-        sans: ["'Inter Variable'", 'system-ui', 'sans-serif'],
-        mono: ["'JetBrains Mono Variable'", 'ui-monospace', 'monospace'],
+        disp: ["'Unbounded Variable'", 'system-ui', 'sans-serif'],
+        sans: ["'Geist Variable'", 'system-ui', 'sans-serif'],
+        mono: ["'Geist Mono Variable'", 'ui-monospace', 'monospace'],
       },
-      borderRadius: { tile: '22px' },
-      maxWidth: { page: '1280px' },
+      maxWidth: { page: '1240px' },
     },
   },
   plugins: [],
